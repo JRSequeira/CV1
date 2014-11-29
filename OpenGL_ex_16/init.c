@@ -20,7 +20,6 @@
 
 #include <GL/freeglut.h>
 
-
 #include "globals.h"
 
 #include "mathUtils.h"
@@ -31,57 +30,57 @@
 void inicializarEstado( void )
 {
 
-   /* DOUBLE-BUFFERING + DEPTH-TESTING */
+    /* DOUBLE-BUFFERING + DEPTH-TESTING */
 
-   glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH );
+    glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH );
 
-   /* Definir a cor do fundo */
+    /* Definir a cor do fundo */
 
-   glClearColor( 0.0, 0.0, 0.0, 1.0 );
+    glClearColor( 0.0, 0.0, 0.0, 1.0 );
 
-   /* Atributos das primitivas */
+    /* Atributos das primitivas */
 
-   glPointSize( 4.0 );
+    glPointSize( 4.0 );
 
-   glLineWidth( 3.0 );
+    glLineWidth( 3.0 );
 
-   /* Modo de desenho dos poligonos */
+    /* Modo de desenho dos poligonos */
 
-   glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+    glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
-   /* Back-Face Culling */
+    /* Back-Face Culling */
 
-   glCullFace( GL_BACK );
+    glCullFace( GL_BACK );
 
-   glFrontFace( GL_CCW );
+    glEnable( GL_CULL_FACE );
 
-   glEnable( GL_CULL_FACE );
+    glEnable( GL_DEPTH_TEST );
 
-   /* Matriz de projeccao é inicialmente a IDENTIDADE => Proj. Paralela Ortogonal */
+    /* Matriz de projeccao é inicialmente a IDENTIDADE => Proj. Paralela Ortogonal */
 
-   matrizProj = IDENTITY_MATRIX;
+    matrizProj = IDENTITY_MATRIX;
 
-   matrizModelView = IDENTITY_MATRIX;
+    matrizModelView = IDENTITY_MATRIX;
 
-   /* Para rodar globalmente a cena */
+    /* Para rodar globalmente a cena */
 
-   animacaoModelosON = 0;
+    animacaoModelosON = 1;
 
-   animacaoFocosON = 0;
+    animacaoFocosON = 0;
 }
 
 
 void inicializarJanela( void )
 {
-   /* Caracteristicas da janela de saida */
+    /* Caracteristicas da janela de saida */
 
-   glutInitWindowSize( 600, 600 ); /* Usar variaveis GLOBAIS para estes parametros */
+    glutInitWindowSize( 600, 600 ); /* Usar variaveis GLOBAIS para estes parametros */
 
-   glutInitWindowPosition( 100, 100 );
+    glutInitWindowPosition( 100, 100 );
 
-   /* Para terminar de modo apropriado */
+    /* Para terminar de modo apropriado */
 
-   glutSetOption(
+    glutSetOption(
 
         GLUT_ACTION_ON_WINDOW_CLOSE,
 
@@ -89,22 +88,22 @@ void inicializarJanela( void )
 
     );
 
-   /* Criar a janela de saida */
+    /* Criar a janela de saida */
 
-   windowHandle = glutCreateWindow( "OpenGL_ex_16" );
+    windowHandle = glutCreateWindow( "OpenGL_ex_16" );
 
-   if( windowHandle < 1 )
-   {
+    if ( windowHandle < 1 )
+    {
         fprintf(
 
-             stderr,
+            stderr,
 
-             "ERROR: Could not create a new rendering window.\n"
+            "ERROR: Could not create a new rendering window.\n"
 
-         );
+        );
 
-         exit( EXIT_FAILURE );
-   }
+        exit( EXIT_FAILURE );
+    }
 }
 
 void inicializarFontesDeLuz( void )
@@ -113,7 +112,7 @@ void inicializarFontesDeLuz( void )
 
     /* Criar o array */
 
-    arrayFocos = (pontFoco*) malloc( numFocos * sizeof(pontFoco) );
+    arrayFocos = (pontFoco *) malloc( numFocos * sizeof(pontFoco) );
 
     /* Foco 0 */
 
@@ -170,25 +169,30 @@ void inicializarModelos( void )
 
     /* Criar o array */
 
-    arrayModelos = (pontModelo*) malloc( numModelos * sizeof(pontModelo) );
+    arrayModelos = (pontModelo *) malloc( numModelos * sizeof(pontModelo) );
 
     /* Modelo 0 */
 
-    arrayModelos[0] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
-    lerVerticesDeFicheiro( "modeloCuboV2.txt", &(arrayModelos[0]->numVertices),
-                                                 &(arrayModelos[0]->arrayVertices) );
+    arrayModelos[0] = (pontModelo) malloc( sizeof(Registo_Modelo) );
+    lerFicheiroOBJ2("cubo.obj", &(arrayModelos[0]->numVertices),
+                   &(arrayModelos[0]->arrayVertices),
+                   &(arrayModelos[0]->arrayNormais));
+
+    
+    //    lerVerticesDeFicheiro( "modeloCuboV2.txt", &(arrayModelos[0]->numVertices),
+    //                                &(arrayModelos[0]->arrayVertices) );
 
     /* Determinar as normais unitarias a cada triangulo */
 
-    arrayModelos[0]->arrayNormais = calcularNormaisTriangulos( arrayModelos[0]->numVertices,
-                                                               arrayModelos[0]->arrayVertices );
+    //arrayModelos[0]->arrayNormais = calcularNormaisTriangulos( arrayModelos[0]->numVertices,
+    //                                                           arrayModelos[0]->arrayVertices );
 
 
 
     /* Array vazio para guardar a cor calculada para cada vertice */
 
-    arrayModelos[0]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[0]->numVertices, sizeof( GLfloat) );
+    arrayModelos[0]->arrayCores = (GLfloat *) calloc( 3 * arrayModelos[0]->numVertices, sizeof( GLfloat) );
 
     /* Propriedades do material */
 
@@ -220,15 +224,15 @@ void inicializarModelos( void )
 
     /* Parametros das transformacoes */
 
-    arrayModelos[0]->deslX = -0.5;
+    arrayModelos[0]->deslX = 0;
 
     arrayModelos[0]->deslY = 0;
 
-    arrayModelos[0]->deslZ = -0.5;
+    arrayModelos[0]->deslZ = 0;
 
-    arrayModelos[0]->angRotXX = -10.0;
+    arrayModelos[0]->angRotXX = 90;
 
-    arrayModelos[0]->angRotYY = -60.0;
+    arrayModelos[0]->angRotYY = 0;
 
     arrayModelos[0]->angRotZZ = 0;
 
@@ -245,10 +249,9 @@ void inicializarModelos( void )
     arrayModelos[0]->rotacaoOnZZ = 0;
 
     /* Modelo 1 */
+        arrayModelos[1] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
-    arrayModelos[1] = (pontModelo) malloc( sizeof(Registo_Modelo) );
-
-    lerVerticesDeFicheiro( "modeloCuboV4.txt", &(arrayModelos[1]->numVertices),
+    lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[1]->numVertices),
                                                  &(arrayModelos[1]->arrayVertices) );
 
     /* Determinar as normais unitarias a cada triangulo */
@@ -261,20 +264,21 @@ void inicializarModelos( void )
     /* Array vazio para guardar a cor calculada para cada vertice */
 
     arrayModelos[1]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[1]->numVertices, sizeof( GLfloat) );
+        int i;
 
     /* Propriedades do material */
 
-    arrayModelos[1]->kAmb[0] = 0.2;
+    arrayModelos[1]->kAmb[0] = 1;
 
-    arrayModelos[1]->kAmb[1] = 0.2;
+    arrayModelos[1]->kAmb[1] = 1;
 
-    arrayModelos[1]->kAmb[2] = 0.2;
+    arrayModelos[1]->kAmb[2] = 1;
 
     arrayModelos[1]->kAmb[3] = 1.0;
 
-    arrayModelos[1]->kDif[0] = 0.7;
+    arrayModelos[1]->kDif[0] = 0;
 
-    arrayModelos[1]->kDif[1] = 0.7;
+    arrayModelos[1]->kDif[1] = 0;
 
     arrayModelos[1]->kDif[2] = 0.7;
 
@@ -292,15 +296,15 @@ void inicializarModelos( void )
 
     /* Parametros das transformacoes */
 
-    arrayModelos[1]->deslX = 0.5;
+    arrayModelos[1]->deslX = 0.0;
 
-    arrayModelos[1]->deslY = 0;
+    arrayModelos[1]->deslY = 0.0;
 
-    arrayModelos[1]->deslZ = -0.5;
+    arrayModelos[1]->deslZ = 0.0;
 
-    arrayModelos[1]->angRotXX = -10.0;
+    arrayModelos[1]->angRotXX = 0;
 
-    arrayModelos[1]->angRotYY = +60.0;
+    arrayModelos[1]->angRotYY = 0;
 
     arrayModelos[1]->angRotZZ = 0;
 
@@ -320,11 +324,11 @@ void inicializarModelos( void )
 
 void libertarArraysModelo( int i )
 {
-     free( arrayModelos[i]->arrayVertices );
+    free( arrayModelos[i]->arrayVertices );
 
-     free( arrayModelos[i]->arrayNormais );
+    free( arrayModelos[i]->arrayNormais );
 
-     free( arrayModelos[i]->arrayCores );
+    free( arrayModelos[i]->arrayCores );
 }
 
 
@@ -332,7 +336,7 @@ void libertarModelos( void )
 {
     int i;
 
-    for( i = 0; i < numModelos; i++ )
+    for ( i = 0; i < numModelos; i++ )
     {
         free( arrayModelos[i]->arrayVertices );
 

@@ -123,6 +123,155 @@ void escreverVerticesEmFicheiro( char* nome, int numVertices, GLfloat* arrayVert
     fclose( fp );
 }
 
+void lerFicheiroOBJ2( char* nome, int* numVertices, GLfloat** arrayVertices, GLfloat** arrayNormais )
+{
+    FILE* pFicheiro;
+    char linha[255];
+    char car;
+    GLfloat x, y, z;
+    int contadorVertices = 0;
+    int contadorNormais = 0;
+    int fcount = 0;
+    int indVert = 0;
+    int indNorm = 0;
+    int FindVert = 0;
+    int FindNorm = 0;
+    int fx,fy,fz;
+    int nx, ny, nz;
+    GLfloat * tmpVertices;
+    GLfloat * tmpNormais;
+    if( !nome )
+    {
+        exit( EXIT_FAILURE );
+    }
+    pFicheiro = fopen( nome, "r" );
+    if( !pFicheiro )
+    {
+        fprintf( stderr, "ERRO na leitura do ficheiro %s\n", nome );
+        exit( EXIT_FAILURE );
+    }
+    while( !feof( pFicheiro ) )
+    {
+        car = fgetc( pFicheiro );
+        switch( car )
+        {
+          case '\n' :    /* Linha em branco */
+              break;
+          case '#' :    /* Comentario */
+              /* Saltar o resto da linha */
+              fgets( linha, 200, pFicheiro );
+              break;
+          case 'v' :    /* Vertice ou vector normal */
+              car = fgetc( pFicheiro );
+              if( car == ' ' )
+              {
+                 contadorVertices++;
+              }
+              else if( car == 'n' )
+              {
+                 contadorNormais++;
+              }
+              fgets( linha, 200, pFicheiro );
+              break;
+          case 'f' :    /* Face */
+              fcount++;
+              fgets( linha, 200, pFicheiro );
+              break;
+        }
+    }
+
+    fclose( pFicheiro );
+    /* Arrays */
+
+    *numVertices = fcount;
+    printf("%d\n", fcount);
+    tmpVertices = (GLfloat*) malloc( 3 * contadorVertices * sizeof( GLfloat ) );
+    tmpNormais = (GLfloat*) malloc( 3 * contadorNormais * sizeof( GLfloat ) );
+    *arrayVertices = (GLfloat*) malloc( 3 * fcount * sizeof( GLfloat ) );
+    printf("%ld\n", sizeof(*arrayVertices));
+
+    *arrayNormais = (GLfloat*) malloc( 3 * fcount * sizeof( GLfloat ) );
+    /* Abrir, de novo, o ficheiro */
+
+    pFicheiro = fopen( nome, "r" );
+    while( !feof( pFicheiro ) )
+    {
+        /* Primeiro caracter da linha corrente */
+        car = fgetc( pFicheiro );
+        switch( car )
+        {
+          case '\n' :    /* Linha em branco */
+
+              break;
+          case '#' :    /* Comentario */
+              /* Saltar o resto da linha */
+              fgets( linha, 200, pFicheiro );
+              break;
+          case 'v' :    /* Vertice ou vector normal */
+              car = fgetc( pFicheiro );
+              if( car == ' ' )
+              {
+                 /* Ler as coordenadas do vertice */
+                 fscanf( pFicheiro, "%f%f%f", &x, &y, &z );
+                 (tmpVertices)[indVert++] = x;
+                 (tmpVertices)[indVert++] = y;
+                 (tmpVertices)[indVert++] = z;
+              }
+              else if( car == 'n' )
+              {
+                 /* Ler as componentes do vector */
+
+                 fscanf( pFicheiro, "%f%f%f", &x, &y, &z );
+                 (tmpNormais)[indNorm++] = x;
+                 (tmpNormais)[indNorm++] = y;
+                 (tmpNormais)[indNorm++] = z;
+              }
+
+              /* Saltar o resto da linha */
+
+              fgets( linha, 200, pFicheiro );
+
+              break;
+
+          case 'f' :    /* Face */
+
+              fscanf(pFicheiro, "%d//%d %d//%d %d//%d", &fx, &nx, &fy, &ny, &fz, &nz);
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fx-1)*3];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fx-1)*3+1];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fx-1)*3+2];
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(nx-1)*3];              
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(nx-1)*3+1];
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(nx-1)*3+2];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fy-1)*3];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fy-1)*3+1];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fy-1)*3+2];
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(ny-1)*3];              
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(ny-1)*3+1];
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(ny-1)*3+2];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fz-1)*3];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fz-1)*3+1];
+              (*arrayVertices)[FindVert++] = (tmpVertices)[(fz-1)*3+2];
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(nz-1)*3];              
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(nz-1)*3+1];
+              (*arrayNormais)[FindNorm++] = (tmpNormais)[(nz-1)*3+2];
+              break;
+        }
+    }
+
+    /* Fechar o ficheiro */
+
+    fclose( pFicheiro );
+
+    /* Calcular as normais, caso nao tenham sido lidas */
+
+    if( FindNorm == 0 )
+    {
+        free( *arrayNormais );
+
+        *arrayNormais = calcularNormaisTriangulos( *numVertices, *arrayVertices );
+    }
+}
+
 
 void lerFicheiroOBJ( char* nome, int* numVertices, GLfloat** arrayVertices, GLfloat** arrayNormais )
 {
@@ -301,7 +450,6 @@ void lerFicheiroOBJ( char* nome, int* numVertices, GLfloat** arrayVertices, GLfl
 		      break;
 
 		  case 'f' :	/* Face */
-
 		      /* Saltar o resto da linha */
 
 		      fgets( linha, 200, pFicheiro );
@@ -323,7 +471,6 @@ void lerFicheiroOBJ( char* nome, int* numVertices, GLfloat** arrayVertices, GLfl
         *arrayNormais = calcularNormaisTriangulos( *numVertices, *arrayVertices );
     }
 }
-
 
 GLfloat* calcularNormaisTriangulos( int numVertices, GLfloat* arrayVertices )
 {

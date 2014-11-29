@@ -90,13 +90,13 @@ void myDisplay( void )
 
         /* Deslocar para mais longe */
 
-        Translate( &matrizModelView, arrayModelos[m]->deslX, arrayModelos[m]->deslY, arrayModelos[m]->deslZ );
-
         RotateAboutX( &matrizModelView, DegreesToRadians( arrayModelos[m]->angRotXX ) );
 
         RotateAboutY( &matrizModelView, DegreesToRadians( arrayModelos[m]->angRotYY ) );
 
         RotateAboutZ( &matrizModelView, DegreesToRadians( arrayModelos[m]->angRotZZ ) );
+
+        Translate( &matrizModelView, arrayModelos[m]->deslX, arrayModelos[m]->deslY, arrayModelos[m]->deslZ );
 
         /* Diminuir o tamanho do modelo para nao sair fora do view volume */
 
@@ -385,18 +385,18 @@ void mySpecialKeys( int key, int x, int y )
     {
         case GLUT_KEY_LEFT :
 
-            arrayModelos[0]->angRotYY -= 5.0;
+            /*arrayModelos[0]->angRotYY += 5.;
 
-            if( arrayModelos[0]->angRotYY < 0.0 )
+            if( arrayModelos[0]->angRotYY >= 360.0 )
             {
-                arrayModelos[0]->angRotYY += 360.0;
+                arrayModelos[0]->angRotYY -= 360.0;
             }
+            */
+            arrayModelos[1]->angRotZZ += 5.;
 
-            arrayModelos[1]->angRotYY += 5.;
-
-            if( arrayModelos[1]->angRotYY >= 360.0 )
+            if( arrayModelos[1]->angRotZZ >= 360.0 )
             {
-                arrayModelos[1]->angRotYY -= 360.0;
+                arrayModelos[1]->angRotZZ -= 360.0;
             }
 
             glutPostRedisplay();
@@ -404,19 +404,19 @@ void mySpecialKeys( int key, int x, int y )
             break;
 
         case GLUT_KEY_RIGHT :
+            /*
+             arrayModelos[0]->angRotYY -= 5.;
 
-            arrayModelos[0]->angRotYY += 5.;
-
-            if( arrayModelos[0]->angRotYY >= 360.0 )
+            if( arrayModelos[0]->angRotYY <= 360.0 )
             {
-                arrayModelos[0]->angRotYY -= 360.0;
+                arrayModelos[0]->angRotYY += 360.0;
             }
+            */
+            arrayModelos[1]->angRotZZ -= 5.;
 
-            arrayModelos[1]->angRotYY -= 5.0;
-
-            if( arrayModelos[1]->angRotYY < 0.0 )
+            if( arrayModelos[1]->angRotZZ <= 360.0 )
             {
-                arrayModelos[1]->angRotYY += 360.0;
+                arrayModelos[1]->angRotZZ += 360.0;
             }
 
             glutPostRedisplay();
@@ -432,7 +432,7 @@ void mySpecialKeys( int key, int x, int y )
                 arrayModelos[0]->angRotXX += 360.0;
             }
 
-            arrayModelos[1]->angRotXX -= 5.0;
+            arrayModelos[1]->angRotXX = -arrayModelos[0]->angRotXX + 90;
 
             if( arrayModelos[1]->angRotXX <= 0.0 )
             {
@@ -452,7 +452,8 @@ void mySpecialKeys( int key, int x, int y )
                 arrayModelos[0]->angRotXX -= 360.0;
             }
 
-            arrayModelos[1]->angRotXX += 5.0;
+
+            arrayModelos[1]->angRotXX = -arrayModelos[0]->angRotXX + 90;
 
             if( arrayModelos[1]->angRotXX >= 360.0 )
             {
@@ -474,18 +475,11 @@ void myTimer( int value )
     {
         /* MODELOS */
 
-        arrayModelos[0]->angRotYY -= 5;
+        arrayModelos[1]->angRotZZ -= 5;
 
-        if( arrayModelos[0]->angRotYY < 0.0 )
+        if( arrayModelos[1]->angRotZZ < 0.0 )
         {
-            arrayModelos[0]->angRotYY += 360.0;
-        }
-
-        arrayModelos[1]->angRotYY += 5;
-
-        if( arrayModelos[1]->angRotYY > 360.0 )
-        {
-            arrayModelos[1]->angRotYY -= 360.0;
+            arrayModelos[1]->angRotZZ += 360.0;
         }
 
         flag = 1;
@@ -511,7 +505,7 @@ void myTimer( int value )
         glutPostRedisplay();
     }
 
-    glutTimerFunc( 250, myTimer, 0 );
+    glutTimerFunc( 1000, myTimer, 0 );
 }
 
 
@@ -519,7 +513,7 @@ void registarCallbackFunctions( void )
 {
    glutDisplayFunc( myDisplay );
 
-   glutTimerFunc( 250, myTimer, 0 );
+   glutTimerFunc( 1000, myTimer, 0 );
 
    glutKeyboardFunc( myKeyboard );
 
