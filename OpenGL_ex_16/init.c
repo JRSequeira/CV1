@@ -14,6 +14,7 @@
 #include <string.h>
 
 
+
 #define GLEW_STATIC /* Necessario se houver problemas com a lib */
 
 #include <GL/glew.h>
@@ -21,6 +22,9 @@
 #include <GL/freeglut.h>
 
 #include "globals.h"
+
+#include "loadOBJ.hpp"
+
 
 #include "mathUtils.h"
 
@@ -54,7 +58,6 @@ void inicializarEstado( void )
 
     glEnable( GL_CULL_FACE );
 
-    glEnable( GL_DEPTH_TEST );
 
     /* Matriz de projeccao é inicialmente a IDENTIDADE => Proj. Paralela Ortogonal */
 
@@ -128,11 +131,11 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos[0]->posicao[3] = 1.0; /* Foco PONTUAL */
 
-    arrayFocos[0]->intensidade[0] = 1.0;
+    arrayFocos[0]->intensidade[0] = 0;
 
     arrayFocos[0]->intensidade[1] = 1.0;
 
-    arrayFocos[0]->intensidade[2] = 1.0;
+    arrayFocos[0]->intensidade[2] = 0.0;
 
     arrayFocos[0]->intensidade[3] = 1.0;
 
@@ -165,7 +168,7 @@ void inicializarFontesDeLuz( void )
 
 void inicializarModelos( void )
 {
-    numModelos = 2;
+    numModelos = 4;
 
     /* Criar o array */
 
@@ -175,7 +178,7 @@ void inicializarModelos( void )
 
 
     arrayModelos[0] = (pontModelo) malloc( sizeof(Registo_Modelo) );
-    lerFicheiroOBJ2("cubo.obj", &(arrayModelos[0]->numVertices),
+    lerFicheiroOBJ("prismaHexagonal.OBJ", &(arrayModelos[0]->numVertices),
                    &(arrayModelos[0]->arrayVertices),
                    &(arrayModelos[0]->arrayNormais));
 
@@ -249,7 +252,7 @@ void inicializarModelos( void )
     arrayModelos[0]->rotacaoOnZZ = 0;
 
     /* Modelo 1 */
-        arrayModelos[1] = (pontModelo) malloc( sizeof(Registo_Modelo) );
+    arrayModelos[1] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
     lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[1]->numVertices),
                                                  &(arrayModelos[1]->arrayVertices) );
@@ -319,6 +322,147 @@ void inicializarModelos( void )
     arrayModelos[1]->rotacaoOnYY = 1;
 
     arrayModelos[1]->rotacaoOnZZ = 0;
+
+
+    arrayModelos[2] = (pontModelo) malloc( sizeof(Registo_Modelo) );
+
+    lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[2]->numVertices),
+                                                 &(arrayModelos[2]->arrayVertices) );
+
+    /* Determinar as normais unitarias a cada triangulo */
+
+    arrayModelos[2]->arrayNormais = calcularNormaisTriangulos( arrayModelos[2]->numVertices,
+                                                               arrayModelos[2]->arrayVertices );
+
+
+
+    /* Array vazio para guardar a cor calculada para cada vertice */
+
+    arrayModelos[2]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[2]->numVertices, sizeof( GLfloat) );
+
+    /* Propriedades do material */
+
+    arrayModelos[2]->kAmb[0] = 1;
+
+    arrayModelos[2]->kAmb[1] = 1;
+
+    arrayModelos[2]->kAmb[2] = 1;
+
+    arrayModelos[2]->kAmb[3] = 1.0;
+
+    arrayModelos[2]->kDif[0] = 0;
+
+    arrayModelos[2]->kDif[1] = 0;
+
+    arrayModelos[2]->kDif[2] = 0.7;
+
+    arrayModelos[2]->kDif[3] = 1.0;
+
+    arrayModelos[2]->kEsp[0] = 0.7;
+
+    arrayModelos[2]->kEsp[1] = 0.7;
+
+    arrayModelos[2]->kEsp[2] = 0.7;
+
+    arrayModelos[2]->kEsp[3] = 1.0;
+
+    arrayModelos[2]->coefDePhong = 100;
+
+    /* Parametros das transformacoes */
+
+    arrayModelos[2]->deslX = 0.0;
+
+    arrayModelos[2]->deslY = 0.0;
+
+    arrayModelos[2]->deslZ = 0.0;
+
+    arrayModelos[2]->angRotXX = 0;
+
+    arrayModelos[2]->angRotYY = 0;
+
+    arrayModelos[2]->angRotZZ = 0;
+
+    arrayModelos[2]->factorEscX = 0.3;
+
+    arrayModelos[2]->factorEscY = 0.3;
+
+    arrayModelos[2]->factorEscZ = 0.3;
+
+    arrayModelos[2]->rotacaoOnXX = 0;
+
+    arrayModelos[2]->rotacaoOnYY = 1;
+
+    arrayModelos[2]->rotacaoOnZZ = 0;
+
+    arrayModelos[3] = (pontModelo) malloc( sizeof(Registo_Modelo) );
+
+    lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[1]->numVertices),
+                                                 &(arrayModelos[1]->arrayVertices) );
+
+    /* Determinar as normais unitarias a cada triangulo */
+
+    arrayModelos[3]->arrayNormais = calcularNormaisTriangulos( arrayModelos[1]->numVertices,
+                                                               arrayModelos[1]->arrayVertices );
+
+
+
+    /* Array vazio para guardar a cor calculada para cada vertice */
+
+    arrayModelos[3]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[1]->numVertices, sizeof( GLfloat) );
+
+    /* Propriedades do material */
+
+    arrayModelos[3]->kAmb[0] = 1;
+
+    arrayModelos[3]->kAmb[1] = 1;
+
+    arrayModelos[3]->kAmb[2] = 1;
+
+    arrayModelos[3]->kAmb[3] = 1.0;
+
+    arrayModelos[3]->kDif[0] = 0;
+
+    arrayModelos[3]->kDif[1] = 0;
+
+    arrayModelos[3]->kDif[2] = 0.7;
+
+    arrayModelos[3]->kDif[3] = 1.0;
+
+    arrayModelos[3]->kEsp[0] = 0.7;
+
+    arrayModelos[3]->kEsp[1] = 0.7;
+
+    arrayModelos[3]->kEsp[2] = 0.7;
+
+    arrayModelos[3]->kEsp[3] = 1.0;
+
+    arrayModelos[3]->coefDePhong = 100;
+
+    /* Parametros das transformacoes */
+
+    arrayModelos[3]->deslX = 0.0;
+
+    arrayModelos[3]->deslY = 0.0;
+
+    arrayModelos[3]->deslZ = 0.0;
+
+    arrayModelos[3]->angRotXX = 0;
+
+    arrayModelos[3]->angRotYY = 0;
+
+    arrayModelos[3]->angRotZZ = 0;
+
+    arrayModelos[3]->factorEscX = 0.3;
+
+    arrayModelos[3]->factorEscY = 0.3;
+
+    arrayModelos[3]->factorEscZ = 0.3;
+
+    arrayModelos[3]->rotacaoOnXX = 0;
+
+    arrayModelos[3]->rotacaoOnYY = 1;
+
+    arrayModelos[3]->rotacaoOnZZ = 0;
 }
 
 
