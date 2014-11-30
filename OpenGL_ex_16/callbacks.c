@@ -93,13 +93,14 @@ void myDisplay( void )
 
         /* Deslocar para mais longe */
 
+        Translate( &matrizModelView, arrayModelos[m]->deslX, arrayModelos[m]->deslY, arrayModelos[m]->deslZ );
+
         RotateAboutX( &matrizModelView, DegreesToRadians( arrayModelos[m]->angRotXX ) );
 
         RotateAboutY( &matrizModelView, DegreesToRadians( arrayModelos[m]->angRotYY ) );
 
         RotateAboutZ( &matrizModelView, DegreesToRadians( arrayModelos[m]->angRotZZ ) );
 
-        Translate( &matrizModelView, arrayModelos[m]->deslX, arrayModelos[m]->deslY, arrayModelos[m]->deslZ );
 
         /* Diminuir o tamanho do modelo para nao sair fora do view volume */
 
@@ -482,10 +483,20 @@ void myTimer( int value )
     int s = tm_struct->tm_sec;
     printf("%d:%d:%d\n", h, m ,s);
 
-    arrayModelos[1]->angRotZZ = 360 - hour(h) ;
-    arrayModelos[2]->angRotZZ = 360 - minute(m);
-    arrayModelos[3]->angRotZZ = 360 - second(s);
-    printf("%f//%f//%f\n", arrayModelos[1]->angRotZZ,arrayModelos[2]->angRotZZ,arrayModelos[3]->angRotZZ);
+    int i = 0;
+    for (i = 0; i < 3; i++)
+    {
+        arrayModelos[3+i]->angRotZZ = 360 - hour(h) ;
+    }
+    for (i = 0; i < 3; i++)
+    {
+        arrayModelos[6+i]->angRotZZ = 360 - minute(m);
+    }
+    for (i = 0; i < 3; i++)
+    {
+        arrayModelos[9+i]->angRotZZ = 360 - second(s);
+    }
+    printf("%f//%f//%f\n", arrayModelos[3+i]->angRotZZ,arrayModelos[4]->angRotZZ,arrayModelos[5]->angRotZZ);
                 flag = 1;
 
     if( animacaoModelosON )
