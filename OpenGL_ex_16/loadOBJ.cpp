@@ -1,79 +1,77 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "loadOBJ.hpp"
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <vector>
+#include <string.h>
 
-extern void loadOBJ(const char* path,
-             int * numvertices,
-             std::vector < GLfloat > vertices,
-             std::vector < GLfloat > normais){
 
-    std::vector< unsigned int > vertexIndices, normalIndices;
-    std::vector< GLfloat* > temp_vertices;
-    std::vector< GLfloat* > temp_uvs;
-    std::vector< GLfloat* > temp_normals;
+class point{
+public:
+    float x;
+    float y;
+    float z;
+};
 
+
+extern "C" void loadOBJ(char* path, int *numVertices, GLfloat **arrayVertices, GLfloat **arrayNormais)
+{
+
+    std::vector<point> vertices, normalVector, faces, facesNormals;
+ 
     FILE * file = fopen(path, "r");
-    if(file == NULL){
-        printf("Couldn't open file\n");
+    if (file == NULL){
+        printf("Failed to open file!\n");
         return;
     }
-
-    while(1){
-        char lineHeader[128];
-        int res = fscanf(file, "%s", lineHeader);
-        if(res == EOF){
-            break;
+ 
+    char firstChar[128];
+    int res = fscanf(file, "%s", firstChar);
+ 
+    point tmp, tmpN;
+    while (res != EOF) {
+        if (strcmp(firstChar, "v") == 0) {
+            fscanf(file, "%f %f %f\n", &tmp.x, &tmp.y, &tmp.z);
+            vertices.push_back(tmp);
         }
-        if (strcmp(lineHeader, "v") == 0){
-            GLfloat v1, v2, v3;
-            fscanf(file, "%f %f %f\n", v1, v2, v3 );
-            temp_vertices.push_back(v1);
-            temp_vertices.push_back(v2);
-            temp_vertices.push_back(v3);
-            
+        else if (strcmp(firstChar, "vn") == 0) {
+            fscanf(file, "%f %f %f\n", &tmp.x, &tmp.y, &tmp.z);
+            normalVector.push_back(tmp);
         }
-        else if ( strcmp( lineHeader, "vn" ) == 0 ){
-            GLfloat n1, n2, n3;
-            fscanf(file, "%f %f %f\n", n1, n2, n3 );
-            temp_normals.push_back(n1);
-            temp_normals.push_back(n2);
-            temp_normals.push_back(n3);
-            
-        }
-        else if ( strcmp( lineHeader, "f" ) == 0 ){
-            std::string vertex1, vertex2, vertex3;
+        else if (strcmp(firstChar, "f") == 0) {
             unsigned int vertexIndex[3], normalIndex[3];
-            int matches = fscanf(file, "%d//%d %d//%d %d//%d\n", &vertexIndex[0], &normalIndex[0], &vertexIndex[1], &normalIndex[1], &vertexIndex[2], &normalIndex[2] );
-            if (matches != 9){
-                printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-                return false;
-            }
-            vertexIndices.push_back(vertexIndex[0]);
-            vertexIndices.push_back(vertexIndex[1]);
-            vertexIndices.push_back(vertexIndex[2]);
-            normalIndices.push_back(normalIndex[0]);
-            normalIndices.push_back(normalIndex[1]);
-            normalIndices.push_back(normalIndex[2]);
+            fscanf(file, "%d//%d %d//%d %d//%d\n", &vertexIndex[0], &normalIndex[0],
+                        &vertexIndex[1], &normalIndex[1],
+                        &vertexIndex[2], &normalIndex[2]);
+            faces.push_back(vertices.at(vertexIndex[0] - 1));
+            faces.push_back(vertices.at(vertexIndex[1] - 1));
+            faces.push_back(vertices.at(vertexIndex[2] - 1));
+ 
+            facesNormals.push_back(normalVector.at(normalIndex[0] - 1));
+            facesNormals.push_back(normalVector.at(normalIndex[1] - 1));
+            facesNormals.push_back(normalVector.at(normalIndex[2] - 1));
+        }
+        else {
+ 
+        }
+        res = fscanf(file, "%s", firstChar);
     }
-    for( unsigned int i=0; i<vertexIndices.size(); i++ ){
-        unsigned int vertexIndex = vertexIndices[i];
-        GLfloat v1 = temp_vertices[(vertexIndex-1)*3];
-        GLfloat v2 = temp_vertices[(vertexIndex-1)*3+1];
-        GLfloat v3 = temp_vertices[(vertexIndex-1)*
-        vertices.push_back(v1);
-        vertices.push_back(v1);
-        vertices.push_back(v1);
+ 
+    *numVertices = faces.size();
+    *arrayVertices = (GLfloat *)malloc(3 * faces.size() * sizeof(GLfloat));
+    *arrayNormais = (GLfloat *)malloc(3 * faces.size() * sizeof(GLfloat));
+    GLfloat* coordenadas = *arrayVertices;
+    GLfloat* normais = *arrayNormais;
+    int sub = 0;
+    for (std::vector<int>::size_type i = 0; i < faces.size(); i++) {
+        tmp = faces.at(i);
+        tmpN = facesNormals.at(i);
+        normais[sub] = tmpN.x;
+        coordenadas[sub++] = tmp.x;
+        normais[sub] = tmpN.y;
+        coordenadas[sub++] = tmp.y;
+        normais[sub] = tmpN.z;
+        coordenadas[sub++] = tmp.z;
     }
-    for( unsigned int i=0; i<normalIndices.size(); i++ ){
-        unsigned int normalIndices = normalIndices[i];
-        GLfloat v1 = temp_normals[(normalIndices-1)*3];
-        GLfloat v2 = temp_normals[(normalIndices-1)*3+1];
-        GLfloat v3 = temp_normals[(normalIndices-1)*
-        vertices.push_back(v1);
-        vertices.push_back(v1);
-        vertices.push_back(v1);
-    }
-
 }
+

@@ -481,7 +481,6 @@ void myTimer( int value )
     int h = tm_struct->tm_hour;
     int m =tm_struct->tm_min;
     int s = tm_struct->tm_sec;
-    printf("%d:%d:%d\n", h, m ,s);
 
     int i = 0;
     for (i = 0; i < 3; i++)
@@ -496,8 +495,7 @@ void myTimer( int value )
     {
         arrayModelos[9+i]->angRotZZ = 360 - second(s);
     }
-    printf("%f//%f//%f\n", arrayModelos[3+i]->angRotZZ,arrayModelos[4]->angRotZZ,arrayModelos[5]->angRotZZ);
-                flag = 1;
+    flag = 1;
 
     if( animacaoModelosON )
     {
