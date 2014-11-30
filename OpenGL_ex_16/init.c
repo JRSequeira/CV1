@@ -30,6 +30,7 @@
 
 #include "models.h"
 
+#include "angteRotation.h"
 
 void inicializarEstado( void )
 {
@@ -267,7 +268,6 @@ void inicializarModelos( void )
     /* Array vazio para guardar a cor calculada para cada vertice */
 
     arrayModelos[1]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[1]->numVertices, sizeof( GLfloat) );
-        int i;
 
     /* Propriedades do material */
 
@@ -396,19 +396,19 @@ void inicializarModelos( void )
 
     arrayModelos[3] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
-    lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[1]->numVertices),
-                                                 &(arrayModelos[1]->arrayVertices) );
+    lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[3]->numVertices),
+                                                 &(arrayModelos[3]->arrayVertices) );
 
     /* Determinar as normais unitarias a cada triangulo */
 
-    arrayModelos[3]->arrayNormais = calcularNormaisTriangulos( arrayModelos[1]->numVertices,
-                                                               arrayModelos[1]->arrayVertices );
+    arrayModelos[3]->arrayNormais = calcularNormaisTriangulos( arrayModelos[3]->numVertices,
+                                                               arrayModelos[3]->arrayVertices );
 
 
 
     /* Array vazio para guardar a cor calculada para cada vertice */
 
-    arrayModelos[3]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[1]->numVertices, sizeof( GLfloat) );
+    arrayModelos[3]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[3]->numVertices, sizeof( GLfloat) );
 
     /* Propriedades do material */
 
@@ -458,11 +458,11 @@ void inicializarModelos( void )
 
     arrayModelos[3]->factorEscZ = 0.3;
 
-    arrayModelos[3]->rotacaoOnXX = 0;
+    arrayModelos[3]->rotacaoOnXX = 1;
 
     arrayModelos[3]->rotacaoOnYY = 1;
 
-    arrayModelos[3]->rotacaoOnZZ = 0;
+    arrayModelos[3]->rotacaoOnZZ = 1;
 }
 
 

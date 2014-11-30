@@ -21,6 +21,9 @@
 
 #include <GL/freeglut.h>
 
+#include <time.h>
+
+#include "angteRotation.h"
 
 #include "globals.h"
 
@@ -470,19 +473,26 @@ void mySpecialKeys( int key, int x, int y )
 void myTimer( int value )
 {
     int flag = 0;
+    time_t epoch_time;
+    epoch_time = time(NULL);
+    struct tm *tm_struct;
+    tm_struct = localtime(&epoch_time);
+    int h = tm_struct->tm_hour;
+    int m =tm_struct->tm_min;
+    int s = tm_struct->tm_sec;
+    printf("%d:%d:%d\n", h, m ,s);
+
+    arrayModelos[1]->angRotZZ = 360 - hour(h) ;
+    arrayModelos[2]->angRotZZ = 360 - minute(m);
+    arrayModelos[3]->angRotZZ = 360 - second(s);
+    printf("%f//%f//%f\n", arrayModelos[1]->angRotZZ,arrayModelos[2]->angRotZZ,arrayModelos[3]->angRotZZ);
+                flag = 1;
 
     if( animacaoModelosON )
     {
         /* MODELOS */
 
-        arrayModelos[1]->angRotZZ -= 5;
 
-        if( arrayModelos[1]->angRotZZ < 0.0 )
-        {
-            arrayModelos[1]->angRotZZ += 360.0;
-        }
-
-        flag = 1;
     }
 
     if( animacaoFocosON )
@@ -505,7 +515,7 @@ void myTimer( int value )
         glutPostRedisplay();
     }
 
-    glutTimerFunc( 1000, myTimer, 0 );
+    glutTimerFunc( 250, myTimer, 0 );
 }
 
 
@@ -513,7 +523,7 @@ void registarCallbackFunctions( void )
 {
    glutDisplayFunc( myDisplay );
 
-   glutTimerFunc( 1000, myTimer, 0 );
+   glutTimerFunc( 250, myTimer, 0 );
 
    glutKeyboardFunc( myKeyboard );
 

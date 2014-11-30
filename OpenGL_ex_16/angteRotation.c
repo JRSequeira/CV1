@@ -1,16 +1,18 @@
-#include "angleRotation.h"
+#include "angteRotation.h"
 
-float second(void)
+float second(int s)
 {
-    return 360/60;
+    return  6*s;
+
 }
 
-float minute(void)
+float minute(int m)
 {
-    return 360/60*60;
+    return 6 * m;
 }
 
-float hour(void)
+float hour(int h)
 {
-    return 360/60*60*24;
+
+    return 15 * h;
 }

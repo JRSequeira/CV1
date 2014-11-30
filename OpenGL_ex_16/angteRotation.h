@@ -11,11 +11,11 @@
 
 /* ----------------------------------------------------------------------- */
 
-float hour(void);
+float hour(int h);
 
-float minute(void);
+float minute(int m);
 
-float second(void);
+float second(int s);
 
 
 /* ----------------------------------------------------------------------- */

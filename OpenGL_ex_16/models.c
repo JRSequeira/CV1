@@ -188,8 +188,6 @@ void lerFicheiroOBJ2( char* nome, int* numVertices, GLfloat** arrayVertices, GLf
     tmpVertices = (GLfloat*) malloc( 3 * contadorVertices * sizeof( GLfloat ) );
     tmpNormais = (GLfloat*) malloc( 3 * contadorNormais * sizeof( GLfloat ) );
     *arrayVertices = (GLfloat*) malloc( 3 * fcount * sizeof( GLfloat ) );
-    printf("%ld\n", sizeof(*arrayVertices));
-
     *arrayNormais = (GLfloat*) malloc( 3 * fcount * sizeof( GLfloat ) );
     /* Abrir, de novo, o ficheiro */
 
@@ -236,24 +234,31 @@ void lerFicheiroOBJ2( char* nome, int* numVertices, GLfloat** arrayVertices, GLf
           case 'f' :    /* Face */
 
               fscanf(pFicheiro, "%d//%d %d//%d %d//%d", &fx, &nx, &fy, &ny, &fz, &nz);
+              printf("%f||%f||%f\n", (tmpVertices)[(fx-1)*3],(tmpVertices)[(fx-1)*3+1],(tmpVertices)[(fx-1)*3+2]);
+              
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fx-1)*3];
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fx-1)*3+1];
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fx-1)*3+2];
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(nx-1)*3];              
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(nx-1)*3+1];
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(nx-1)*3+2];
+              printf("%d\n", FindNorm);
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fy-1)*3];
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fy-1)*3+1];
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fy-1)*3+2];
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(ny-1)*3];              
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(ny-1)*3+1];
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(ny-1)*3+2];
+              printf("%d\n", FindNorm);
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fz-1)*3];
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fz-1)*3+1];
               (*arrayVertices)[FindVert++] = (tmpVertices)[(fz-1)*3+2];
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(nz-1)*3];              
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(nz-1)*3+1];
               (*arrayNormais)[FindNorm++] = (tmpNormais)[(nz-1)*3+2];
+              printf("%d\n", FindNorm);
+              fgets( linha, 200, pFicheiro );
+
               break;
         }
     }
