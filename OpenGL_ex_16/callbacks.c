@@ -35,6 +35,7 @@
 
 
 /* Callback functions */
+static int freq = 0;
 
 void myDisplay( void )
 {
@@ -173,20 +174,25 @@ void myTimer( int value )
     int m =tm_struct->tm_min;
     int s = tm_struct->tm_sec;
 
-    int i = 0;
-    for (i = 0; i < 3; i++)
+    if (freq == 4)
     {
-        arrayModelos[3+i]->angRotZZ = 360 - hour(h) ;
+        freq = 0;
+        int i = 0;
+        for (i = 0; i < 3; i++)
+        {
+            arrayModelos[3+i]->angRotZZ = 360 - hour(h) ;
+        }
+        for (i = 0; i < 3; i++)
+        {
+            arrayModelos[6+i]->angRotZZ = 360 - minute(m);
+        }
+        for (i = 0; i < 3; i++)
+        {
+            arrayModelos[9+i]->angRotZZ = 360 - second(s);
+        }
+        flag = 1;
     }
-    for (i = 0; i < 3; i++)
-    {
-        arrayModelos[6+i]->angRotZZ = 360 - minute(m);
-    }
-    for (i = 0; i < 3; i++)
-    {
-        arrayModelos[9+i]->angRotZZ = 360 - second(s);
-    }
-    flag = 1;
+    freq++;
 
     int difh, difm;
     int ah = getAlarmHour();
@@ -206,11 +212,11 @@ void myTimer( int value )
     {
         /* MODELOS */
 
-
     }
 
     if( animacaoFocosON )
     {
+        
         if( arrayFocos[0]->rotacaoOnXX )
         {
             arrayFocos[0]->angRotXX += 10.0;
@@ -219,7 +225,27 @@ void myTimer( int value )
             {
                 arrayFocos[0]->angRotXX -= 360.0;
             }
+            arrayFocos[0]->translX += 2;
+            if (arrayFocos[0]->translX > 10.0)
+            {
+                arrayFocos[0]->translX = 0;
+            }
+            flag = 1;
 
+        }
+        if( arrayFocos[1]->rotacaoOnXX )
+        {
+            arrayFocos[1]->angRotXX -= 10.0;
+
+            if( arrayFocos[1]->angRotXX <= 0.0 )
+            {
+                arrayFocos[1]->angRotXX += 360.0;
+            }
+            arrayFocos[1]->translX -= 2;
+            if (arrayFocos[1]->translX <= 0)
+            {
+                arrayFocos[1]->translX = 10.0;
+            }
             flag = 1;
         }
     }
@@ -229,7 +255,7 @@ void myTimer( int value )
         glutPostRedisplay();
     }
 
-    glutTimerFunc( 250, myTimer, 0 );
+    glutTimerFunc( 250/4, myTimer, 0 );
 }
 
 
@@ -237,7 +263,7 @@ void registarCallbackFunctions( void )
 {
    glutDisplayFunc( myDisplay );
 
-   glutTimerFunc( 250, myTimer, 0 );
+   glutTimerFunc( 250/4, myTimer, 0 );
 
    glutKeyboardFunc( myKeyboard );
 
