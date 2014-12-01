@@ -16,7 +16,7 @@ typedef struct{
 }Alarm;
 
 
-float hour(int h);
+float hour(int h, int i);
 
 float minute(int m);
 
@@ -30,7 +30,7 @@ void setAlarm(int h, int m);
 
 int getFusoHorario();
 
-void setFusoHorario(int h);
+void setFusoHorario(int h, int relogio);
 
 void Dif(int h1, int m1, int h2, int m2, int* rh, int* rm);
 

@@ -238,7 +238,7 @@ void myTimer( int value )
         int i = 0;
         for (i = 0; i < 3; i++)
         {
-            arrayModelos[3+i]->angRotZZ = 360 - hour(h) ;
+            arrayModelos[3+i]->angRotZZ = 360 - hour(h, i) ;
         }
         for (i = 0; i < 3; i++)
         {

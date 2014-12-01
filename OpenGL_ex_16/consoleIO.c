@@ -88,7 +88,7 @@ void getUserAlarm(){
 
 void getNewFusoHorario()
 {
-    int h, op;
+    int h, op, relogio;
     do{
         fprintf(stdout, "Fuso Horario:\n1) Lisboa / Londres\n2) Madrid / Paris / Berlin\n");
         fprintf(stdout, "3) Kiev / Tallinn\n4) Moscovo / Kuwait\n5) Pequim\n6) Toquio\n7) Sidney\n");
@@ -129,7 +129,12 @@ void getNewFusoHorario()
             h = 0;
     }
     fprintf(stdout, "Fuso Horario: %d Hora(s)\n", h);
-    setFusoHorario(h);
+    do{
+        fprintf(stdout, "Relogio a alterar (0 --> Esquerda; 1 --> Direita): ");
+        fscanf(stdin, "%d", &relogio);
+    }while(relogio != 0 && relogio != 1);
+
+    setFusoHorario(h, relogio);
 }
 
 void printAlarm(int difh, int difm){
