@@ -113,17 +113,17 @@ void inicializarJanela( void )
 
 void inicializarFontesDeLuz( void )
 {
-    numFocos = 1;
+    numFocos = 2;
 
     /* Criar o array */
 
-    arrayFocos = (pontFoco *) malloc( numFocos * sizeof(pontFoco) );
+    arrayFocos = (pontFoco*) malloc( numFocos * sizeof(pontFoco) );
 
     /* Foco 0 */
 
     arrayFocos[0] = (pontFoco) malloc( sizeof(Registo_Foco) );
 
-    arrayFocos[0]->focoIsOn = 1;
+    arrayFocos[0]->focoIsOn = 0;
 
     arrayFocos[0]->posicao[0] = 0.0;
 
@@ -133,11 +133,11 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos[0]->posicao[3] = 1.0; /* Foco PONTUAL */
 
-    arrayFocos[0]->intensidade[0] = 0;
+    arrayFocos[0]->intensidade[0] = 1.0;
 
     arrayFocos[0]->intensidade[1] = 1.0;
 
-    arrayFocos[0]->intensidade[2] = 0.0;
+    arrayFocos[0]->intensidade[2] = 1.0;
 
     arrayFocos[0]->intensidade[3] = 1.0;
 
@@ -166,6 +166,54 @@ void inicializarFontesDeLuz( void )
     arrayFocos[0]->rotacaoOnYY = 0;
 
     arrayFocos[0]->rotacaoOnZZ = 0;
+
+    /* Foco 1 */
+
+    arrayFocos[1] = (pontFoco)malloc(sizeof(Registo_Foco));
+
+    arrayFocos[1]->focoIsOn = 1;
+
+    arrayFocos[1]->posicao[0] = -5.0;
+
+    arrayFocos[1]->posicao[1] = 0.0;
+
+    arrayFocos[1]->posicao[2] = 0.0;
+
+    arrayFocos[1]->posicao[3] = 1.0; /* Foco PONTUAL */
+
+    arrayFocos[1]->intensidade[0] = 1.0;
+
+    arrayFocos[1]->intensidade[1] = 0.0;
+
+    arrayFocos[1]->intensidade[2] = 0.0;
+
+    arrayFocos[1]->intensidade[3] = 1.0;
+
+    arrayFocos[1]->luzAmbiente[0] = 0.4;
+
+    arrayFocos[1]->luzAmbiente[1] = 0.6;
+
+    arrayFocos[1]->luzAmbiente[2] = 0.1;
+
+    arrayFocos[1]->luzAmbiente[3] = 1.0;
+
+    arrayFocos[1]->translX = 0.0;
+
+    arrayFocos[1]->translY = 0.0;
+
+    arrayFocos[1]->translZ = 0.0;
+
+    arrayFocos[1]->angRotXX = 0.0;
+
+    arrayFocos[1]->angRotYY = 0.0;
+
+    arrayFocos[1]->angRotZZ = 0.0;
+
+    arrayFocos[1]->rotacaoOnXX = 1;
+
+    arrayFocos[1]->rotacaoOnYY = 0;
+
+    arrayFocos[1]->rotacaoOnZZ = 0;
 }
 
 void inicializarModelos( void )
@@ -178,7 +226,13 @@ void inicializarModelos( void )
 
     // RELOGIO 0
     arrayModelos[0] = (pontModelo) malloc( sizeof(Registo_Modelo) );
+    /*
     loadOBJ("simpleobj.obj", &(arrayModelos[0]->numVertices),
+                   &(arrayModelos[0]->arrayVertices),
+                   &(arrayModelos[0]->arrayNormais));
+                   */
+
+    lerFicheiroOBJ("prismaHexagonal.OBJ", &(arrayModelos[0]->numVertices),
                    &(arrayModelos[0]->arrayVertices),
                    &(arrayModelos[0]->arrayNormais));
 
@@ -377,9 +431,17 @@ void inicializarModelos( void )
     {
         arrayModelos[3+i] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
+/*
         loadOBJ( "pointerV1.obj", &(arrayModelos[3+i]->numVertices),
                                                      &(arrayModelos[3+i]->arrayVertices),
                                                      &(arrayModelos[3+i]->arrayNormais) );
+*/
+        lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[3+i]->numVertices),
+                                                 &(arrayModelos[3+i]->arrayVertices) );
+        /* Determinar as normais unitarias a cada triangulo */
+
+        arrayModelos[3+i]->arrayNormais = calcularNormaisTriangulos( arrayModelos[3+i]->numVertices,
+                                                               arrayModelos[3+i]->arrayVertices );
 
 
         /* Array vazio para guardar a cor calculada para cada vertice */
@@ -448,9 +510,14 @@ void inicializarModelos( void )
     {
         arrayModelos[6+i] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
+        /*
         loadOBJ( "pointerV2.obj", &(arrayModelos[6+i]->numVertices),
                                                      &(arrayModelos[6+i]->arrayVertices),
-                                                      &(arrayModelos[6+i]->arrayNormais)  );
+                                                      &(arrayModelos[6+i]->arrayNormais)  );*/
+        lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[6+i]->numVertices),
+                                                 &(arrayModelos[6+i]->arrayVertices) );
+        arrayModelos[6+i]->arrayNormais = calcularNormaisTriangulos( arrayModelos[6+i]->numVertices,
+                                                               arrayModelos[6+i]->arrayVertices );
 
         /* Array vazio para guardar a cor calculada para cada vertice */
 
@@ -519,9 +586,14 @@ void inicializarModelos( void )
     {
         arrayModelos[9+i] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
+        /*
         loadOBJ( "pointerV3.obj", &(arrayModelos[9+i]->numVertices),
                                                      &(arrayModelos[9+i]->arrayVertices),
-                                                      &(arrayModelos[9+i]->arrayNormais)  );
+                                                      &(arrayModelos[9+i]->arrayNormais)  );*/
+        lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[9+i]->numVertices),
+                                                 &(arrayModelos[9+i]->arrayVertices) );
+        arrayModelos[9+i]->arrayNormais = calcularNormaisTriangulos( arrayModelos[9+i]->numVertices,
+                                                               arrayModelos[9+i]->arrayVertices );
 
 
         /* Array vazio para guardar a cor calculada para cada vertice */
