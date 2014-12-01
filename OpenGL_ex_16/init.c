@@ -119,33 +119,33 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos = (pontFoco*) malloc( numFocos * sizeof(pontFoco) );
 
-    /* Foco 0 */
+    /* Foco 0 Alarm */
 
     arrayFocos[0] = (pontFoco) malloc( sizeof(Registo_Foco) );
 
     arrayFocos[0]->focoIsOn = 0;
 
-    arrayFocos[0]->posicao[0] = 0.0;
+    arrayFocos[0]->posicao[0] = 0;
 
-    arrayFocos[0]->posicao[1] = 0.0;
+    arrayFocos[0]->posicao[1] = -10.0;
 
-    arrayFocos[0]->posicao[2] = 5.0;
+    arrayFocos[0]->posicao[2] = 2.0;
 
-    arrayFocos[0]->posicao[3] = 1.0; /* Foco PONTUAL */
+    arrayFocos[0]->posicao[3] = 0.0; /* Foco DIRECCIONAL */
 
     arrayFocos[0]->intensidade[0] = 1.0;
 
-    arrayFocos[0]->intensidade[1] = 1.0;
+    arrayFocos[0]->intensidade[1] = 0.0;
 
-    arrayFocos[0]->intensidade[2] = 1.0;
+    arrayFocos[0]->intensidade[2] = 0.0;
 
     arrayFocos[0]->intensidade[3] = 1.0;
 
     arrayFocos[0]->luzAmbiente[0] = 0.2;
 
-    arrayFocos[0]->luzAmbiente[1] = 0.2;
+    arrayFocos[0]->luzAmbiente[1] = 0.0;
 
-    arrayFocos[0]->luzAmbiente[2] = 0.2;
+    arrayFocos[0]->luzAmbiente[2] = 0.0;
 
     arrayFocos[0]->luzAmbiente[3] = 1.0;
 
@@ -163,21 +163,21 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos[0]->rotacaoOnXX = 1;
 
-    arrayFocos[0]->rotacaoOnYY = 0;
+    arrayFocos[0]->rotacaoOnYY = 1;
 
-    arrayFocos[0]->rotacaoOnZZ = 0;
+    arrayFocos[0]->rotacaoOnZZ = 1;
 
-    /* Foco 1 */
+    /* Foco 1 - Alarm */
 
-    arrayFocos[1] = (pontFoco)malloc(sizeof(Registo_Foco));
+    arrayFocos[1] = (pontFoco) malloc( sizeof(Registo_Foco) );
 
-    arrayFocos[1]->focoIsOn = 1;
+    arrayFocos[1]->focoIsOn = 0;
 
-    arrayFocos[1]->posicao[0] = -5.0;
+    arrayFocos[1]->posicao[0] = 0;
 
-    arrayFocos[1]->posicao[1] = 0.0;
+    arrayFocos[1]->posicao[1] = 10.0;
 
-    arrayFocos[1]->posicao[2] = 0.0;
+    arrayFocos[1]->posicao[2] = -2.0;
 
     arrayFocos[1]->posicao[3] = 1.0; /* Foco PONTUAL */
 
@@ -189,11 +189,11 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos[1]->intensidade[3] = 1.0;
 
-    arrayFocos[1]->luzAmbiente[0] = 0.4;
+    arrayFocos[1]->luzAmbiente[0] = 0.2;
 
-    arrayFocos[1]->luzAmbiente[1] = 0.6;
+    arrayFocos[1]->luzAmbiente[1] = 0.0;
 
-    arrayFocos[1]->luzAmbiente[2] = 0.1;
+    arrayFocos[1]->luzAmbiente[2] = 0.0;
 
     arrayFocos[1]->luzAmbiente[3] = 1.0;
 
@@ -211,9 +211,11 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos[1]->rotacaoOnXX = 1;
 
-    arrayFocos[1]->rotacaoOnYY = 0;
+    arrayFocos[1]->rotacaoOnYY = 1;
 
-    arrayFocos[1]->rotacaoOnZZ = 0;
+    arrayFocos[1]->rotacaoOnZZ = 1;
+
+    
 }
 
 void inicializarModelos( void )
