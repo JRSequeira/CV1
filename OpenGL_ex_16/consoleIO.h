@@ -20,6 +20,11 @@
 
 void infosConsola( void );
 
+void getUserAlarm(void);
+
+void printAlarm(int difh, int difm);
+
+
 void infosModelo( int numVertices, GLfloat* arrayVertices, GLfloat* arrayNormais );
 
 void infosVector( GLfloat* v );

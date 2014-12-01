@@ -113,7 +113,7 @@ void inicializarJanela( void )
 
 void inicializarFontesDeLuz( void )
 {
-    numFocos = 2;
+    numFocos = 3;
 
     /* Criar o array */
 
@@ -214,6 +214,54 @@ void inicializarFontesDeLuz( void )
     arrayFocos[1]->rotacaoOnYY = 1;
 
     arrayFocos[1]->rotacaoOnZZ = 1;
+
+    /* Foco 2 - Normal */
+
+    arrayFocos[2] = (pontFoco) malloc( sizeof(Registo_Foco) );
+
+    arrayFocos[2]->focoIsOn = 1;
+
+    arrayFocos[2]->posicao[0] = 0;
+
+    arrayFocos[2]->posicao[1] = 1.0;
+
+    arrayFocos[2]->posicao[2] = 0.0;
+
+    arrayFocos[2]->posicao[3] = 1.0; /* Foco PONTUAL */
+
+    arrayFocos[2]->intensidade[0] = 1.0;
+
+    arrayFocos[2]->intensidade[1] = 1.0;
+
+    arrayFocos[2]->intensidade[2] = 1.0;
+
+    arrayFocos[2]->intensidade[3] = 1.0;
+
+    arrayFocos[2]->luzAmbiente[0] = 0.4;
+
+    arrayFocos[2]->luzAmbiente[1] = 0.4;
+
+    arrayFocos[2]->luzAmbiente[2] = 0.4;
+
+    arrayFocos[2]->luzAmbiente[3] = 1.0;
+
+    arrayFocos[2]->translX = 0.0;
+
+    arrayFocos[2]->translY = 0.0;
+
+    arrayFocos[2]->translZ = 0.0;
+
+    arrayFocos[2]->angRotXX = 0.0;
+
+    arrayFocos[2]->angRotYY = 0.0;
+
+    arrayFocos[2]->angRotZZ = 0.0;
+
+    arrayFocos[2]->rotacaoOnXX = 1;
+
+    arrayFocos[2]->rotacaoOnYY = 1;
+
+    arrayFocos[2]->rotacaoOnZZ = 1;
 
     
 }

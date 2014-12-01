@@ -10,12 +10,27 @@
 
 
 /* ----------------------------------------------------------------------- */
+typedef struct{
+    int h;
+    int m;
+}Alarm;
+
 
 float hour(int h);
 
 float minute(int m);
 
 float second(int s);
+
+int getAlarmHour();
+
+int getAlarmMinute();
+
+void setAlarm(int h, int m);
+
+void Dif(int h1, int m1, int h2, int m2, int* rh, int* rm);
+
+void resetAlarm();
 
 
 /* ----------------------------------------------------------------------- */

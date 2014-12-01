@@ -14,6 +14,7 @@
 
 #include "consoleIO.h"
 
+#include "angteRotation.h"
 
 /* Escrever algumas informacoes na consola */
 
@@ -77,6 +78,18 @@ void anguloRotacao( float *ang )
     fprintf( stdout, "\n" );
 
 }
+
+void getUserAlarm(){
+    int h, m;
+    fprintf(stdout, "Hora: (Formato HH:MM)\n");
+    fscanf(stdin, "%d:%d", &h, &m);
+    setAlarm(h, m);
+}
+
+void printAlarm(int difh, int difm){
+    fprintf(stdout, "Time Missing -> %d:%d\n", difh, difm);
+}
+
 
 
 void parametrosTransl3D( float *dx, float *dy, float *dz )

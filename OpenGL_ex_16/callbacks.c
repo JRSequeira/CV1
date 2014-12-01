@@ -33,6 +33,11 @@
 
 #include "shading.h"
 
+#include <stdio.h>
+
+#include <stdlib.h>
+
+#include <unistd.h>
 
 /* Callback functions */
 static int freq = 0;
@@ -162,6 +167,7 @@ void mySpecialKeys( int key, int x, int y )
     }
 }
 
+static int played = 0;
 
 void myTimer( int value )
 {
@@ -174,8 +180,60 @@ void myTimer( int value )
     int m =tm_struct->tm_min;
     int s = tm_struct->tm_sec;
 
+
+
     if (freq == 4)
     {
+
+        int difh, difm;
+        int ah = getAlarmHour();
+        int am = getAlarmMinute();
+        if(ah != -1){
+            Dif(ah, am,h, m, &difh, &difm);
+            if(difh == 0 && difm == 0){
+                if(!animacaoFocosON){
+                    animacaoFocosON = 1;
+                    arrayFocos[0]->focoIsOn = 1;
+                    arrayFocos[1]->focoIsOn = 1;
+                    arrayFocos[2]->focoIsOn = 0;
+                    played = 1;
+                }
+                pid_t x;      // a special kind of int
+                char kil[20] = "kill -s 9 ";
+ 
+                x = fork();   /* now there's actually two "x"s:
+        if fork succeeds, "x" to the CHILD PROCESS is the return value of fork (0)
+        and "x" to the PARENT PROCESS is the actual system pid of the child process.*/
+                 
+                if (x < 0) {  // just in case fork fails
+                        puts("fork failure");
+                        exit(-1);
+                }  
+                else if (x == 0) { // therefore this block will be the child process
+                        system("mpg123 -q Beep.mp3");
+                }                   // see GNU docs, "system" also works               
+                else {  printf("from parent: mpg123 is pid %d\nENTER to quit\n", x);
+                        sprintf(kil,"%s%d",kil,x);
+                        system(kil);
+                        printf("All ");
+                }    
+
+            }
+            else{
+            printAlarm(difh, difm);
+            if(animacaoFocosON){
+                animacaoFocosON = 0;
+                arrayFocos[0]->focoIsOn = 0;
+                arrayFocos[1]->focoIsOn = 0;
+                arrayFocos[2]->focoIsOn = 1;
+                }
+                if(played){
+                    played = 0;
+                    resetAlarm();
+                }
+            }
+        }
+
         freq = 0;
         int i = 0;
         for (i = 0; i < 3; i++)
@@ -193,20 +251,6 @@ void myTimer( int value )
         flag = 1;
     }
     freq++;
-
-    int difh, difm;
-    int ah = getAlarmHour();
-    int am = getAlarmMinute();
-    if(ah != -1){
-        Dif(ah, am,h, m, &difh, &difm);
-        if(difh == 0 && difm == 0){
-            //ring alarm
-
-        }
-        else{
-        printAlarm(difh, difm);
-        }
-    }
 
     if( animacaoModelosON )
     {
