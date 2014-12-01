@@ -5,21 +5,103 @@
 
 static Alarm alarm = {-1, -1};
 static int fusoHorario[2] = {0, 0};
+static int timer[2] = {0, 0};
+static int timerOk[3] = {0, 0, 0};
+static int timerValues[3] = {-1, -1, -1};
+
+void setTimer(int i, int res)
+{
+    timer[i] = res;
+    int j = 0;
+    for (j = 0; j < 3; j++)
+    {
+        timerOk[j] = 0;
+        timerValues[j] = 0;
+    }
+}
 
 float second(int s)
 {
+    if ((timer[0] == 1 || timer[1] == 1))
+    {
+        if (timerOk[0] == 0)
+        {
+            timerOk[0] = 1;
+            timerValues[0] = s;
+            return 0;
+        }
+        else if (s == 0)
+        {
+            return timerValues[0];
+        }
+
+        else if (s > timerValues[0])
+        {
+            return 6*(s-timerValues[0]);
+        }
+        else if (s < timerValues[0])
+        {
+            return 6*(s+timerValues[0]);
+        }
+        return 0;
+        
+    }
     return  6*s;
 
 }
 
 float minute(int m)
 {
+    if((timer[0] == 1 || timer[1] == 1))
+    {
+        if (timerOk[1] == 0)
+        {
+            timerOk[1] = 1;
+            timerValues[1] = m;
+            return 0;
+        }
+        else if (m == 0)
+        {
+            return timerValues[1];
+        }
+        else if (m > timerValues[1])
+        {
+            return 6*(m-timerValues[1]);
+        }
+        else if (m < timerValues[1])
+        {
+            return 6*(m+timerValues[1]);
+        }
+        return 0;
+    }
     return 6 * m;
 }
 
 float hour(int h, int i)
 {
     float res = 0;
+    if((timer[0] == 1 || timer[1] == 1))
+    {
+        if (timerOk[2] == 0)
+        {
+            timerOk[2] = 1;
+            timerValues[2] = h;
+            return 0;
+        }
+        else if (h == 0)
+        {
+            return timerValues[2];
+        }
+        else if (h > timerValues[2])
+        {
+            return 6*(h-timerValues[2]);
+        }
+        else if (h < timerValues[2])
+        {
+            return 6*(h+timerValues[2]);
+        }
+        return 0;
+    }
     if (i == 0)
     {
         res = 30 * ((h + fusoHorario[0])%12);

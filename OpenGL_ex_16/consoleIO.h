@@ -26,6 +26,7 @@ void getNewFusoHorario(void);
 
 void printAlarm(int difh, int difm);
 
+void getTimerOption (void);
 
 void infosModelo( int numVertices, GLfloat* arrayVertices, GLfloat* arrayNormais );
 

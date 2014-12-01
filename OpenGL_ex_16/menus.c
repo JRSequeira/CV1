@@ -75,6 +75,7 @@ static void myMenuEsq( int i )
             break;
         }
         case 'C':{
+            getTimerOption();
             break;
         }
     }	

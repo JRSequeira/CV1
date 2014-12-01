@@ -15,6 +15,7 @@ typedef struct{
     int m;
 }Alarm;
 
+void setTimer(int i, int res);
 
 float hour(int h, int i);
 

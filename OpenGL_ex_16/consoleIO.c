@@ -137,6 +137,23 @@ void getNewFusoHorario()
     setFusoHorario(h, relogio);
 }
 
+void getTimerOption()
+{
+    int op;
+    do{
+        fprintf(stdout, "Timer (0 --> count; 1 --> limit): ");
+        fscanf(stdin, "%d", &op);
+    }while(op != 0 && op != 1);
+    if (op == 0)
+    {
+        setTimer(0, 1);
+    }
+    else
+    {
+        setTimer(1, 1);
+    }
+}
+
 void printAlarm(int difh, int difm){
     fprintf(stdout, "Time Missing -> %d:%d\n", difh, difm);
 }

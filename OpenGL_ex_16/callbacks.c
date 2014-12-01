@@ -238,7 +238,7 @@ void myTimer( int value )
         int i = 0;
         for (i = 0; i < 3; i++)
         {
-            arrayModelos[3+i]->angRotZZ = 360 - hour(h, i) ;
+            arrayModelos[9+i]->angRotZZ = 360 - second(s);
         }
         for (i = 0; i < 3; i++)
         {
@@ -246,8 +246,9 @@ void myTimer( int value )
         }
         for (i = 0; i < 3; i++)
         {
-            arrayModelos[9+i]->angRotZZ = 360 - second(s);
+            arrayModelos[3+i]->angRotZZ = 360 - hour(h, i) ;
         }
+        
         flag = 1;
     }
     freq++;
