@@ -146,237 +146,7 @@ void myKeyboard( unsigned char key, int x, int y )
 
         case 27  :  exit( EXIT_SUCCESS );
 
-        case 'Z' :
-
-        case 'z' :
-
-            arrayModelos[0]->angRotZZ += 5.0;
-
-            if( arrayModelos[0]->angRotZZ > 360.0 )
-            {
-                arrayModelos[0]->angRotZZ -= 360.0;
-            }
-
-            arrayModelos[1]->angRotZZ -= 5.0;
-
-            if( arrayModelos[1]->angRotZZ < 0.0 )
-            {
-                arrayModelos[1]->angRotZZ += 360.0;
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'X' :
-
-        case 'x' :
-
-            arrayModelos[0]->angRotZZ -= 5.0;
-
-            if( arrayModelos[0]->angRotZZ < 0.0 )
-            {
-                arrayModelos[0]->angRotZZ += 360.0;
-            }
-
-            arrayModelos[1]->angRotZZ += 5.0;
-
-            if( arrayModelos[1]->angRotZZ > 360.0 )
-            {
-                arrayModelos[1]->angRotZZ -= 360.0;
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case '+' :
-
-            arrayFocos[0]->posicao[0] *= 1.2;
-
-            arrayFocos[0]->posicao[1] *= 1.2;
-
-            arrayFocos[0]->posicao[2] *= 1.2;
-
-            glutPostRedisplay();
-
-            break;
-
-        case '-' :
-
-            arrayFocos[0]->posicao[0] *= 0.8;
-
-            arrayFocos[0]->posicao[1] *= 0.8;
-
-            arrayFocos[0]->posicao[2] *= 0.8;
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'A' :
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[0]->kAmb[i] += 0.1 ) > 1.0 )
-                {
-                    arrayModelos[0]->kAmb[i] = 1.0;
-                }
-            }
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[1]->kAmb[i] += 0.1 ) > 1.0 )
-                {
-                    arrayModelos[1]->kAmb[i] = 1.0;
-                }
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'a' :
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[0]->kAmb[i] -= 0.1 ) < 0.0 )
-                {
-                    arrayModelos[0]->kAmb[i] = 0.0;
-                }
-            }
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[1]->kAmb[i] -= 0.1 ) < 0.0 )
-                {
-                    arrayModelos[1]->kAmb[i] = 0.0;
-                }
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'D' :
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[0]->kDif[i] += 0.1 ) > 1.0 )
-                {
-                    arrayModelos[0]->kDif[i] = 1.0;
-                }
-            }
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[1]->kDif[i] += 0.1 ) > 1.0 )
-                {
-                    arrayModelos[1]->kDif[i] = 1.0;
-                }
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'd' :
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[0]->kDif[i] -= 0.1 ) < 0.0 )
-                {
-                    arrayModelos[0]->kDif[i] = 0.0;
-                }
-            }
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[1]->kDif[i] -= 0.1 ) < 0.0 )
-                {
-                    arrayModelos[1]->kDif[i] = 0.0;
-                }
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'E' :
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[0]->kEsp[i] += 0.1 ) > 1.0 )
-                {
-                    arrayModelos[0]->kEsp[i] = 1.0;
-                }
-            }
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[1]->kEsp[i] += 0.1 ) > 1.0 )
-                {
-                    arrayModelos[1]->kEsp[i] = 1.0;
-                }
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'e' :
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[0]->kEsp[i] -= 0.1 ) < 0.0 )
-                {
-                    arrayModelos[0]->kEsp[i] = 0.0;
-                }
-            }
-
-            for( i = 0; i < 3; i++ )
-            {
-                if( ( arrayModelos[1]->kEsp[i] -= 0.1 ) < 0.0 )
-                {
-                    arrayModelos[1]->kEsp[i] = 0.0;
-                }
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'P' :
-
-            if( ( arrayModelos[0]->coefDePhong += 10 ) >= 256 )
-            {
-                arrayModelos[0]->coefDePhong = 255;
-            }
-
-            if( ( arrayModelos[1]->coefDePhong += 10 ) >= 256 )
-            {
-                arrayModelos[1]->coefDePhong = 255;
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case 'p' :
-
-            if( ( arrayModelos[0]->coefDePhong -= 10 ) <= 0 )
-            {
-                arrayModelos[0]->coefDePhong = 1;
-            }
-
-            if( ( arrayModelos[1]->coefDePhong -= 10 ) <= 0 )
-            {
-                arrayModelos[1]->coefDePhong = 1;
-            }
-
-            glutPostRedisplay();
-
-            break;
+        
     }
 }
 
@@ -387,86 +157,7 @@ void mySpecialKeys( int key, int x, int y )
 
     switch( key )
     {
-        case GLUT_KEY_LEFT :
-
-            /*arrayModelos[0]->angRotYY += 5.;
-
-            if( arrayModelos[0]->angRotYY >= 360.0 )
-            {
-                arrayModelos[0]->angRotYY -= 360.0;
-            }
-            */
-            arrayModelos[1]->angRotZZ += 5.;
-
-            if( arrayModelos[1]->angRotZZ >= 360.0 )
-            {
-                arrayModelos[1]->angRotZZ -= 360.0;
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case GLUT_KEY_RIGHT :
-            /*
-             arrayModelos[0]->angRotYY -= 5.;
-
-            if( arrayModelos[0]->angRotYY <= 360.0 )
-            {
-                arrayModelos[0]->angRotYY += 360.0;
-            }
-            */
-            arrayModelos[1]->angRotZZ -= 5.;
-
-            if( arrayModelos[1]->angRotZZ <= 360.0 )
-            {
-                arrayModelos[1]->angRotZZ += 360.0;
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case GLUT_KEY_UP :
-
-            arrayModelos[0]->angRotXX -= 5.0;
-
-            if( arrayModelos[0]->angRotXX <= 0.0 )
-            {
-                arrayModelos[0]->angRotXX += 360.0;
-            }
-
-            arrayModelos[1]->angRotXX = -arrayModelos[0]->angRotXX + 90;
-
-            if( arrayModelos[1]->angRotXX <= 0.0 )
-            {
-                arrayModelos[1]->angRotXX += 360.0;
-            }
-
-            glutPostRedisplay();
-
-            break;
-
-        case GLUT_KEY_DOWN :
-
-            arrayModelos[0]->angRotXX += 5.0;
-
-            if( arrayModelos[0]->angRotXX >= 360.0 )
-            {
-                arrayModelos[0]->angRotXX -= 360.0;
-            }
-
-
-            arrayModelos[1]->angRotXX = -arrayModelos[0]->angRotXX + 90;
-
-            if( arrayModelos[1]->angRotXX >= 360.0 )
-            {
-                arrayModelos[1]->angRotXX -= 360.0;
-            }
-
-            glutPostRedisplay();
-
-            break;
+        
     }
 }
 
@@ -496,6 +187,20 @@ void myTimer( int value )
         arrayModelos[9+i]->angRotZZ = 360 - second(s);
     }
     flag = 1;
+
+    int difh, difm;
+    int ah = getAlarmHour();
+    int am = getAlarmMinute();
+    if(ah != -1){
+        Dif(ah, am,h, m, &difh, &difm);
+        if(difh == 0 && difm == 0){
+            //ring alarm
+
+        }
+        else{
+        printAlarm(difh, difm);
+        }
+    }
 
     if( animacaoModelosON )
     {
