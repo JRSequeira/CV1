@@ -50,7 +50,9 @@ typedef struct menuItemStruct {
 
 static menuItemStruct menu1[] = {
 
-				{"Definir alarme",   'A'}
+				{"Definir alarme",   'A'},
+                {"Fuso Horario", 'B'},
+                {"Cronometro", 'C'}
 };
 
 int numItensMenu1 = sizeof( menu1 ) / sizeof( menuItemStruct );
@@ -65,6 +67,14 @@ static void myMenuEsq( int i )
         case 'A':{
             getUserAlarm();
             glutPostRedisplay();
+            break;
+        }
+        case 'B':{
+            getNewFusoHorario();
+            glutPostRedisplay();
+            break;
+        }
+        case 'C':{
             break;
         }
     }	
@@ -95,8 +105,6 @@ void criarMenus( void )
 	/* O botao do rato associado */
 
 	glutAttachMenu( GLUT_LEFT_BUTTON );
-
-    
 
  }
 /* ----------------------------------------------------------------------- */

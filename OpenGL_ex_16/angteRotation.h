@@ -28,6 +28,10 @@ int getAlarmMinute();
 
 void setAlarm(int h, int m);
 
+int getFusoHorario();
+
+void setFusoHorario(int h);
+
 void Dif(int h1, int m1, int h2, int m2, int* rh, int* rm);
 
 void resetAlarm();

@@ -86,6 +86,52 @@ void getUserAlarm(){
     setAlarm(h, m);
 }
 
+void getNewFusoHorario()
+{
+    int h, op;
+    do{
+        fprintf(stdout, "Fuso Horario:\n1) Lisboa / Londres\n2) Madrid / Paris / Berlin\n");
+        fprintf(stdout, "3) Kiev / Tallinn\n4) Moscovo / Kuwait\n5) Pequim\n6) Toquio\n7) Sidney\n");
+        fprintf(stdout, "8) Buenos Aires\n9) Nova Iorque\nEscolher opcao:");
+    fscanf(stdin, "%d", &op);
+    }while (op > 9 || op < 1);
+
+    switch(op)
+    {
+        case 1:
+            h = 0;
+            break;
+        case 2:
+            h = 1;
+            break;
+        case 3:
+            h = 2;
+            break;
+        case 4:
+            h = 3;
+            break;
+        case 5:
+            h = 8;
+            break;
+        case 6:
+            h = 9;
+            break;
+        case 7:
+            h = 10;
+            break;
+        case 8:
+            h = -3;
+            break;
+        case 9:
+            h = -5;
+            break;
+        default:
+            h = 0;
+    }
+    fprintf(stdout, "Fuso Horario: %d Hora(s)\n", h);
+    setFusoHorario(h);
+}
+
 void printAlarm(int difh, int difm){
     fprintf(stdout, "Time Missing -> %d:%d\n", difh, difm);
 }

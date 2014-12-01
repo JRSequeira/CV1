@@ -4,6 +4,7 @@
 
 
 static Alarm alarm = {-1, -1};
+static int fusoHorario = 0;
 
 float second(int s)
 {
@@ -18,7 +19,7 @@ float minute(int m)
 
 float hour(int h)
 {
-    float res = 30 * (h%12);
+    float res = 30 * ((h + fusoHorario)%12);
     return res;
 }
 
@@ -34,6 +35,16 @@ int getAlarmMinute(){
 void setAlarm(int h, int m){
     alarm.h = h;
     alarm.m = m;
+}
+
+int getFusoHorario()
+{
+    return fusoHorario;
+}
+
+void setFusoHorario(int h)
+{
+    fusoHorario = h;
 }
 
 

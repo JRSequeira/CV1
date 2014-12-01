@@ -22,6 +22,8 @@ void infosConsola( void );
 
 void getUserAlarm(void);
 
+void getNewFusoHorario(void);
+
 void printAlarm(int difh, int difm);
 
 
