@@ -1,8 +1,6 @@
 #include "angteRotation.h"
 #include "stdio.h"
 
-
-
 static Alarm alarm = {-1, -1};
 static int fusoHorario[2] = {0, 0};
 static int timer[2] = {0, 0};

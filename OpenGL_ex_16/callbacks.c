@@ -143,9 +143,11 @@ void myDisplay( void )
 void myKeyboard( unsigned char key, int x, int y )
 {
     int i;
-
     switch( key )
     {
+        case 's':
+            setTimer(0, 0);
+            break;
         case 'Q' :
 
         case 'q' :
