@@ -276,12 +276,12 @@ void inicializarModelos( void )
 
     // RELOGIO 0
     arrayModelos[0] = (pontModelo) malloc( sizeof(Registo_Modelo) );
-    /*
-    loadOBJ("simpleobj.obj", &(arrayModelos[0]->numVertices),
+    
+    loadOBJ("model_square.obj", &(arrayModelos[0]->numVertices),
                    &(arrayModelos[0]->arrayVertices),
                    &(arrayModelos[0]->arrayNormais));
-                   */
-
+                   
+/*
     lerFicheiroOBJ("prismaHexagonal.OBJ", &(arrayModelos[0]->numVertices),
                    &(arrayModelos[0]->arrayVertices),
                    &(arrayModelos[0]->arrayNormais));
@@ -481,19 +481,20 @@ void inicializarModelos( void )
     {
         arrayModelos[3+i] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
-/*
+
         loadOBJ( "pointerV1.obj", &(arrayModelos[3+i]->numVertices),
                                                      &(arrayModelos[3+i]->arrayVertices),
                                                      &(arrayModelos[3+i]->arrayNormais) );
-*/
+
+/*
         lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[3+i]->numVertices),
                                                  &(arrayModelos[3+i]->arrayVertices) );
         /* Determinar as normais unitarias a cada triangulo */
-
+/*
         arrayModelos[3+i]->arrayNormais = calcularNormaisTriangulos( arrayModelos[3+i]->numVertices,
                                                                arrayModelos[3+i]->arrayVertices );
 
-
+*/
         /* Array vazio para guardar a cor calculada para cada vertice */
 
         arrayModelos[3+i]->arrayCores = (GLfloat*) calloc( 3 * arrayModelos[3+i]->numVertices, sizeof( GLfloat) );
@@ -560,11 +561,11 @@ void inicializarModelos( void )
     {
         arrayModelos[6+i] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
-        /*
+        
         loadOBJ( "pointerV2.obj", &(arrayModelos[6+i]->numVertices),
                                                      &(arrayModelos[6+i]->arrayVertices),
-                                                      &(arrayModelos[6+i]->arrayNormais)  );*/
-        lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[6+i]->numVertices),
+                                                      &(arrayModelos[6+i]->arrayNormais)  );
+   /*     lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[6+i]->numVertices),
                                                  &(arrayModelos[6+i]->arrayVertices) );
         arrayModelos[6+i]->arrayNormais = calcularNormaisTriangulos( arrayModelos[6+i]->numVertices,
                                                                arrayModelos[6+i]->arrayVertices );
@@ -636,11 +637,11 @@ void inicializarModelos( void )
     {
         arrayModelos[9+i] = (pontModelo) malloc( sizeof(Registo_Modelo) );
 
-        /*
+        
         loadOBJ( "pointerV3.obj", &(arrayModelos[9+i]->numVertices),
                                                      &(arrayModelos[9+i]->arrayVertices),
-                                                      &(arrayModelos[9+i]->arrayNormais)  );*/
-        lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[9+i]->numVertices),
+                                                      &(arrayModelos[9+i]->arrayNormais)  );
+      /*  lerVerticesDeFicheiro( "ponteiro.txt", &(arrayModelos[9+i]->numVertices),
                                                  &(arrayModelos[9+i]->arrayVertices) );
         arrayModelos[9+i]->arrayNormais = calcularNormaisTriangulos( arrayModelos[9+i]->numVertices,
                                                                arrayModelos[9+i]->arrayVertices );
