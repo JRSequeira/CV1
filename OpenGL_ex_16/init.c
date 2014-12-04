@@ -334,17 +334,17 @@ void inicializarModelos( void )
 
     arrayModelos[0]->deslZ = 0;
 
-    arrayModelos[0]->angRotXX = 90;
+    arrayModelos[0]->angRotXX = 0;
 
     arrayModelos[0]->angRotYY = 0;
 
     arrayModelos[0]->angRotZZ = 0;
 
-    arrayModelos[0]->factorEscX = 0.3;
+    arrayModelos[0]->factorEscX = 1;
 
-    arrayModelos[0]->factorEscY = 0.3;
+    arrayModelos[0]->factorEscY = 1;
 
-    arrayModelos[0]->factorEscZ = 0.3;
+    arrayModelos[0]->factorEscZ = 1;
 
     arrayModelos[0]->rotacaoOnXX = 0;
 
@@ -355,10 +355,15 @@ void inicializarModelos( void )
     // RELOGIO 1
 
     arrayModelos[1] = (pontModelo) malloc( sizeof(Registo_Modelo) );
+    
+    loadOBJ("model_circle.obj", &(arrayModelos[1]->numVertices),
+                   &(arrayModelos[1]->arrayVertices),
+                   &(arrayModelos[1]->arrayNormais));
+/*
     lerFicheiroOBJ("prismaHexagonal.OBJ", &(arrayModelos[1]->numVertices),
                    &(arrayModelos[1]->arrayVertices),
                    &(arrayModelos[1]->arrayNormais));
-
+*/
     /* Array vazio para guardar a cor calculada para cada vertice */
 
     arrayModelos[1]->arrayCores = (GLfloat *) calloc( 3 * arrayModelos[1]->numVertices, sizeof( GLfloat) );
@@ -399,17 +404,17 @@ void inicializarModelos( void )
 
     arrayModelos[1]->deslZ = 0;
 
-    arrayModelos[1]->angRotXX = 90;
+    arrayModelos[1]->angRotXX = 0;
 
     arrayModelos[1]->angRotYY = 0;
 
     arrayModelos[1]->angRotZZ = 0;
 
-    arrayModelos[1]->factorEscX = 0.3;
+    arrayModelos[1]->factorEscX = 1;
 
-    arrayModelos[1]->factorEscY = 0.3;
+    arrayModelos[1]->factorEscY = 1;
 
-    arrayModelos[1]->factorEscZ = 0.3;
+    arrayModelos[1]->factorEscZ = 1;
 
     arrayModelos[1]->rotacaoOnXX = 0;
 
@@ -430,31 +435,31 @@ void inicializarModelos( void )
 
     /* Propriedades do material */
 
-    arrayModelos[2]->kAmb[0] = 0.2;
+    arrayModelos[2]->kAmb[0] = 0.3;
 
-    arrayModelos[2]->kAmb[1] = 0.2;
+    arrayModelos[2]->kAmb[1] = 0.0;
 
-    arrayModelos[2]->kAmb[2] = 0.2;
+    arrayModelos[2]->kAmb[2] = 0.0;
 
     arrayModelos[2]->kAmb[3] = 1.0;
 
-    arrayModelos[2]->kDif[0] = 0.7;
+    arrayModelos[2]->kDif[0] = 0.6;
 
-    arrayModelos[2]->kDif[1] = 0.7;
+    arrayModelos[2]->kDif[1] = 0.0;
 
-    arrayModelos[2]->kDif[2] = 0.7;
+    arrayModelos[2]->kDif[2] = 0.0;
 
     arrayModelos[2]->kDif[3] = 1.0;
 
-    arrayModelos[2]->kEsp[0] = 0.7;
+    arrayModelos[2]->kEsp[0] = 0.8;
 
-    arrayModelos[2]->kEsp[1] = 0.7;
+    arrayModelos[2]->kEsp[1] = 0.6;
 
-    arrayModelos[2]->kEsp[2] = 0.7;
+    arrayModelos[2]->kEsp[2] = 0.6;
 
     arrayModelos[2]->kEsp[3] = 1.0;
 
-    arrayModelos[2]->coefDePhong = 100;
+    arrayModelos[2]->coefDePhong = 32.0;
 
     /* Parametros das transformacoes */
 
@@ -470,11 +475,11 @@ void inicializarModelos( void )
 
     arrayModelos[2]->angRotZZ = 0;
 
-    arrayModelos[2]->factorEscX = 0.3;
+    arrayModelos[2]->factorEscX = 0.35;
 
-    arrayModelos[2]->factorEscY = 0.3;
+    arrayModelos[2]->factorEscY = 0.35:
 
-    arrayModelos[2]->factorEscZ = 0.3;
+    arrayModelos[2]->factorEscZ = 0.35;
 
     arrayModelos[2]->rotacaoOnXX = 0;
 
@@ -509,31 +514,31 @@ void inicializarModelos( void )
 
         /* Propriedades do material */
 
-        arrayModelos[3+i]->kAmb[0] = 1;
+        arrayModelos[3+i]->kAmb[0] = 0.25;
 
-        arrayModelos[3+i]->kAmb[1] = 1;
+        arrayModelos[3+i]->kAmb[1] = 0.15;
 
-        arrayModelos[3+i]->kAmb[2] = 1;
+        arrayModelos[3+i]->kAmb[2] = 0.06;
 
         arrayModelos[3+i]->kAmb[3] = 1.0;
 
-        arrayModelos[3+i]->kDif[0] = 0;
+        arrayModelos[3+i]->kDif[0] = 0.4;
 
-        arrayModelos[3+i]->kDif[1] = 0;
+        arrayModelos[3+i]->kDif[1] = 0.24;
 
-        arrayModelos[3+i]->kDif[2] = 0.7;
+        arrayModelos[3+i]->kDif[2] = 0.1;
 
         arrayModelos[3+i]->kDif[3] = 1.0;
 
-        arrayModelos[3+i]->kEsp[0] = 0.7;
+        arrayModelos[3+i]->kEsp[0] = 0.77;
 
-        arrayModelos[3+i]->kEsp[1] = 0.7;
+        arrayModelos[3+i]->kEsp[1] = 0.46;
 
-        arrayModelos[3+i]->kEsp[2] = 0.7;
+        arrayModelos[3+i]->kEsp[2] = 0.20;
 
         arrayModelos[3+i]->kEsp[3] = 1.0;
 
-        arrayModelos[3+i]->coefDePhong = 100;
+        arrayModelos[3+i]->coefDePhong = 76.8;
 
         /* Parametros das transformacoes */
 
@@ -584,31 +589,31 @@ void inicializarModelos( void )
 
         /* Propriedades do material */
 
-        arrayModelos[6+i]->kAmb[0] = 1;
+        arrayModelos[6+i]->kAmb[0] = 0.33;
 
-        arrayModelos[6+i]->kAmb[1] = 1;
+        arrayModelos[6+i]->kAmb[1] = 0.22;
 
-        arrayModelos[6+i]->kAmb[2] = 1;
+        arrayModelos[6+i]->kAmb[2] = 0.03;
 
         arrayModelos[6+i]->kAmb[3] = 1.0;
 
-        arrayModelos[6+i]->kDif[0] = 0;
+        arrayModelos[6+i]->kDif[0] = 0.78;
 
-        arrayModelos[6+i]->kDif[1] = 0;
+        arrayModelos[6+i]->kDif[1] = 0.57;
 
-        arrayModelos[6+i]->kDif[2] = 0.7;
+        arrayModelos[6+i]->kDif[2] = 0.11;
 
         arrayModelos[6+i]->kDif[3] = 1.0;
 
-        arrayModelos[6+i]->kEsp[0] = 0.7;
+        arrayModelos[6+i]->kEsp[0] = 0.99;
 
-        arrayModelos[6+i]->kEsp[1] = 0.7;
+        arrayModelos[6+i]->kEsp[1] = 0.94;
 
-        arrayModelos[6+i]->kEsp[2] = 0.7;
+        arrayModelos[6+i]->kEsp[2] = 0.81;
 
         arrayModelos[6+i]->kEsp[3] = 1.0;
 
-        arrayModelos[6+i]->coefDePhong = 100;
+        arrayModelos[6+i]->coefDePhong = 27.9;
 
         /* Parametros das transformacoes */
 
@@ -661,31 +666,31 @@ void inicializarModelos( void )
 
         /* Propriedades do material */
 
-        arrayModelos[9+i]->kAmb[0] = 1;
+        arrayModelos[9+i]->kAmb[0] = 0.25;
 
-        arrayModelos[9+i]->kAmb[1] = 1;
+        arrayModelos[9+i]->kAmb[1] = 0.22;
 
-        arrayModelos[9+i]->kAmb[2] = 1;
+        arrayModelos[9+i]->kAmb[2] = 0.06;
 
         arrayModelos[9+i]->kAmb[3] = 1.0;
 
-        arrayModelos[9+i]->kDif[0] = 0;
+        arrayModelos[9+i]->kDif[0] = 0.35;
 
-        arrayModelos[9+i]->kDif[1] = 0;
+        arrayModelos[9+i]->kDif[1] = 0.31;
 
-        arrayModelos[9+i]->kDif[2] = 0.7;
+        arrayModelos[9+i]->kDif[2] = 0.09;
 
         arrayModelos[9+i]->kDif[3] = 1.0;
 
-        arrayModelos[9+i]->kEsp[0] = 0.7;
+        arrayModelos[9+i]->kEsp[0] = 0.8;
 
-        arrayModelos[9+i]->kEsp[1] = 0.7;
+        arrayModelos[9+i]->kEsp[1] = 0.73;
 
-        arrayModelos[9+i]->kEsp[2] = 0.7;
+        arrayModelos[9+i]->kEsp[2] = 0.21;
 
         arrayModelos[9+i]->kEsp[3] = 1.0;
 
-        arrayModelos[9+i]->coefDePhong = 100;
+        arrayModelos[9+i]->coefDePhong = 83.2;
 
         /* Parametros das transformacoes */
 
