@@ -1,30 +1,44 @@
 #include "angleRotation.h"
 #include "stdio.h"
 
+/*
+Variaveis auxiliares responsaveis por controlar as varias funcionalidades.
+*/
+
 static Alarm alarm = {-1, -1};
 static int fusoHorario[2] = {0, 0};
 static int timer[3] = {0, 0, 0};
 static int timerOk[3] = {0, 0, 0};
 static int timerValues[3] = {-1, -1, -1};
 
+/*
+Funcao que permite activar ou desactivar o timer (recorrendo ao res)
+de um determinado relogio (recorrendo ao i).
+*/
+
 void setTimer(int i, int res)
 {
+    int j = 0;
     if (i == 1)
     {
-        i = 2;
-        fprintf(stdout, "Fuso Horario: Hora(s)\n");
+        timer[2] = res;
     }
-
-        fprintf(stdout, "Fuso Horario: Hora(s)\n");
-    fprintf(stdout, " %d Hora(s)\n", i);
-    timer[i] = res;
-    int j = 0;
+    else
+    {
+        timer[0] = res;
+    }
     for (j = 0; j < 3; j++)
     {
         timerOk[j] = 0;
         timerValues[j] = 0;
     }
 }
+
+/*
+Funcao que calcula qual o angulo de rotacao do ponteiro dos 
+segundos para um determinado reĺogio recorrendo ao valor dos 
+segundos ou do timer.
+*/
 
 float second(int s, int i)
 {
@@ -53,8 +67,13 @@ float second(int s, int i)
         
     }
     return  6*s;
-
 }
+
+/*
+Funcao que calcula qual o angulo de rotacao do ponteiro dos 
+minutos para um determinado reĺogio recorrendo ao valor dos 
+minutos ou do timer.
+*/
 
 float minute(int m, int i)
 {
@@ -82,6 +101,12 @@ float minute(int m, int i)
     }
     return 6 * m;
 }
+
+/*
+Funcao que calcula qual o angulo de rotacao do ponteiro das 
+horas para um determinado reĺogio recorrendo ao valor das 
+horas ou do timer e considerando o fuso horario activo
+*/
 
 float hour(int h, int i)
 {
@@ -123,24 +148,45 @@ float hour(int h, int i)
     return res;
 }
 
+/*
+Funcao responsavel por retornar a hora em que o alarme esta definido
+*/
 
 int getAlarmHour(){
     return alarm.h;
 }
 
+/*
+Funcao responsavel por retornar os minutos em que o alarme esta definido
+*/
+
 int getAlarmMinute(){
     return alarm.m;
 }
+
+/*
+Funcao responsavel por inicializar o alarme
+*/
 
 void setAlarm(int h, int m){
     alarm.h = h;
     alarm.m = m;
 }
 
+/*
+Funcao responsavel por retornaro fuso horario definido para 
+um determinado relogio
+*/
+
 int getFusoHorario(int i)
 {
     return fusoHorario[i];
 }
+
+/*
+Funcao responsavel por inicializar o fuso horario num
+determinado relogio
+*/
 
 void setFusoHorario(int h, int relogio)
 {
@@ -152,6 +198,10 @@ void setFusoHorario(int h, int relogio)
     timer[relogio] = 0;
 }
 
+/*
+Funcao responsavel por calcular a diferenca entre a hora
+actual e a hora que o alrme esta definido
+*/
 
 void Dif(int h1, int m1, int h2, int m2, int* rh, int* rm){
     if(h2 > h1){
@@ -161,8 +211,11 @@ void Dif(int h1, int m1, int h2, int m2, int* rh, int* rm){
     *rm = m1-m2;
     *rh = h1-h2;
    
-
 }
+
+/*
+Funcao responsavel por desligar o alarme
+*/
 
 void resetAlarm(){
     alarm.h = -1;

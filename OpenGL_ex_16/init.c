@@ -31,6 +31,9 @@
 
 #include "angleRotation.h"
 
+/* 
+Matriz contendo os valores Kamb, Kdiff, Kesp e nPhong
+*/
 
 float mat[5][10] = 
     {
