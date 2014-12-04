@@ -480,7 +480,7 @@ void inicializarModelos( void )
 
     arrayModelos[2]->factorEscX = 0.35;
 
-    arrayModelos[2]->factorEscY = 0.35:
+    arrayModelos[2]->factorEscY = 0.35;
 
     arrayModelos[2]->factorEscZ = 0.35;
 
