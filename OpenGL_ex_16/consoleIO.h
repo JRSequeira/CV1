@@ -20,6 +20,8 @@
 
 void infosConsola( void );
 
+void getMaterialChange (void);
+
 void getUserAlarm(void);
 
 void getNewFusoHorario(void);

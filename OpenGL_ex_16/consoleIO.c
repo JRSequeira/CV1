@@ -12,11 +12,19 @@
 
 #include <stdio.h>
 
+#include <GL/glew.h>
+
+#include <GL/freeglut.h>
+
 #include "consoleIO.h"
 
 #include "angleRotation.h"
 
+#include "init.h"
+
 /* Escrever algumas informacoes na consola */
+
+
 
 void infosConsola( void )
 {
@@ -84,6 +92,23 @@ void getUserAlarm(){
     fprintf(stdout, "Hora: (Formato HH:MM)\n");
     fscanf(stdin, "%d:%d", &h, &m);
     setAlarm(h, m);
+}
+
+void getMaterialChange()
+{
+    int relogio, op;
+    do{
+        fprintf(stdout, "Relogio a alterar (0 --> Esquerda; 1 --> Centro; 2 --> Direita): ");
+        fscanf(stdin, "%d", &relogio);
+    }while(relogio != 0 && relogio != 1 && relogio != 2);
+
+    do{
+        fprintf(stdout, "Material:\n1) Bronze\n2) Cromio\n");
+        fprintf(stdout, "3) Ouro\n4) Prata\n5) Azul\nEscolher opcao:");
+    fscanf(stdin, "%d", &op);
+    }while (op > 5 || op < 1);
+
+    alterarModelo(relogio, op-1);
 }
 
 void getNewFusoHorario()

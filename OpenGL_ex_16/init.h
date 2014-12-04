@@ -23,5 +23,7 @@ void libertarArraysModelo( int i );
 
 void libertarModelos( void );
 
+void alterarModelo(int relogio, int op);
+
 
 #endif

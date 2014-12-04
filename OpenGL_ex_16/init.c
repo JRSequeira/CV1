@@ -32,6 +32,14 @@
 #include "angleRotation.h"
 
 
+float mat[5][10] = 
+    {
+        {0.21, 0.13, 0.05, 0.71, 0.43, 0.18, 0.39, 0.27, 0.17, 25.6},
+        {0.25, 0.25, 0.25, 0.4, 0.4, 0.4, 0.77, 0.77, 0.77, 76.8},
+        {0.25, 0.20, 0.07, 0.75, 0.60, 0.23, 0.63, 0.56, 0.37, 51.2},
+        {0.23, 0.23, 0.23, 0.28, 0.28, 0.28, 0.77, 0.77, 0.77, 89.6},
+        {0.0, 0.0, 0.5, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 125.0}
+    };
 
 void inicializarEstado( void )
 {
@@ -707,6 +715,37 @@ void inicializarModelos( void )
     arrayModelos[10]->deslX = 0.00;
     arrayModelos[11]->deslX = 0.65;
 
+}
+
+void alterarModelo(int relogio, int op)
+{
+    arrayModelos[relogio]->kAmb[0] = mat[op][0];
+
+    arrayModelos[relogio]->kAmb[1] = mat[op][1];
+
+    arrayModelos[relogio]->kAmb[2] = mat[op][2];
+
+    arrayModelos[relogio]->kAmb[3] = 1.0;
+
+    arrayModelos[relogio]->kDif[0] = mat[op][3];
+
+    arrayModelos[relogio]->kDif[1] = mat[op][4];
+
+    arrayModelos[relogio]->kDif[2] = mat[op][5];
+
+    arrayModelos[relogio]->kDif[3] = 1.0;
+
+    arrayModelos[relogio]->kEsp[0] = mat[op][6];
+
+    arrayModelos[relogio]->kEsp[1] = mat[op][7];
+
+    arrayModelos[relogio]->kEsp[2] = mat[op][8];
+
+    arrayModelos[relogio]->kEsp[3] = 1.0;
+
+    arrayModelos[relogio]->coefDePhong = mat[op][9];
+
+    glutPostRedisplay();
 }
 
 
