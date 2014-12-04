@@ -23,7 +23,7 @@
 
 #include "globals.h"
 
-#include "angteRotation.h"
+#include "angleRotation.h"
 
 #include "init.h"
 

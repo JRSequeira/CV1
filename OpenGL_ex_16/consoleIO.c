@@ -14,7 +14,7 @@
 
 #include "consoleIO.h"
 
-#include "angteRotation.h"
+#include "angleRotation.h"
 
 /* Escrever algumas informacoes na consola */
 

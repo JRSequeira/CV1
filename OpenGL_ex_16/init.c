@@ -29,7 +29,7 @@
 
 #include "models.h"
 
-#include "angteRotation.h"
+#include "angleRotation.h"
 
 
 
@@ -357,31 +357,31 @@ void inicializarModelos( void )
 
     /* Propriedades do material */
 
-    arrayModelos[1]->kAmb[0] = 0.2;
+    arrayModelos[1]->kAmb[0] = 0.21;
 
-    arrayModelos[1]->kAmb[1] = 0.2;
+    arrayModelos[1]->kAmb[1] = 0.13;
 
-    arrayModelos[1]->kAmb[2] = 0.2;
+    arrayModelos[1]->kAmb[2] = 0.05;
 
     arrayModelos[1]->kAmb[3] = 1.0;
 
-    arrayModelos[1]->kDif[0] = 0.7;
+    arrayModelos[1]->kDif[0] = 0.71;
 
-    arrayModelos[1]->kDif[1] = 0.7;
+    arrayModelos[1]->kDif[1] = 0.43;
 
-    arrayModelos[1]->kDif[2] = 0.7;
+    arrayModelos[1]->kDif[2] = 0.18;
 
     arrayModelos[1]->kDif[3] = 1.0;
 
-    arrayModelos[1]->kEsp[0] = 0.7;
+    arrayModelos[1]->kEsp[0] = 0.39;
 
-    arrayModelos[1]->kEsp[1] = 0.7;
+    arrayModelos[1]->kEsp[1] = 0.27;
 
-    arrayModelos[1]->kEsp[2] = 0.7;
+    arrayModelos[1]->kEsp[2] = 0.17;
 
     arrayModelos[1]->kEsp[3] = 1.0;
 
-    arrayModelos[1]->coefDePhong = 100;
+    arrayModelos[1]->coefDePhong = 25.6;
 
     /* Parametros das transformacoes */
 
