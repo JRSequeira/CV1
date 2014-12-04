@@ -31,6 +31,8 @@
 
 #include "models.h"
 
+#include "mathUtils.h"
+
 
 /* ----------------------------------------------------------------------- */
 
@@ -53,7 +55,8 @@ static menuItemStruct menu1[] = {
 				{"Definir alarme",   'A'},
                 {"Fuso Horario", 'B'},
                 {"Cronometro", 'C'},
-                {"Alterar Materiais", 'D'}
+                {"Alterar Materiais", 'D'},
+                {"Mudar Perspective", 'E'}
 };
 
 int numItensMenu1 = sizeof( menu1 ) / sizeof( menuItemStruct );
@@ -61,6 +64,8 @@ int numItensMenu1 = sizeof( menu1 ) / sizeof( menuItemStruct );
 /* ----------------------------------------------------------------------- */
 
 /* Callback function para o MENU 2 - Botao Direito */
+
+int pers = 0;
 
 static void myMenuEsq( int i )
 {
@@ -84,6 +89,7 @@ static void myMenuEsq( int i )
             
             break;
         }
+
     }	
 }
 

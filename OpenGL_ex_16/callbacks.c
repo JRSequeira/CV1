@@ -39,6 +39,8 @@
 
 #include <unistd.h>
 
+#include "mathUtils.h"
+
 /* Callback functions */
 static int freq = 0;
 
@@ -165,7 +167,18 @@ void mySpecialKeys( int key, int x, int y )
 
     switch( key )
     {
-        
+        case GLUT_KEY_DOWN:
+            matrizProj = IDENTITY_MATRIX;
+            break;
+        case GLUT_KEY_LEFT:
+            matrizProj = NEW_MATRIX2;
+            break;             
+        case GLUT_KEY_RIGHT:
+            matrizProj = NEW_MATRIX;
+            break;
+        case GLUT_KEY_UP:
+            matrizProj = NEW_MATRIX3;
+            break;
     }
 }
 

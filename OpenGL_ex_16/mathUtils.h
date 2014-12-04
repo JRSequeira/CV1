@@ -44,6 +44,27 @@ static const mat4x4 IDENTITY_MATRIX = { {
 	0, 0, 0, 1
 } };
 
+static const mat4x4 NEW_MATRIX = {{
+    1, 1, 0, 0,
+    -1, 1, 0, 0,
+    0, -1, 1, 0,
+    0, 0, 0, 1
+}};
+
+static const mat4x4 NEW_MATRIX2 = {{
+    1, 1, 1, 1,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    0, 0, 0, 1
+}};
+
+static const mat4x4 NEW_MATRIX3 = {{
+    1, 0, 0, -1.5,
+    0, 1, 0, -1,
+    0, 0, 1, -1,
+    0, 0, 0, 1
+}};
+
 
 float Cotangent(float angle);
 

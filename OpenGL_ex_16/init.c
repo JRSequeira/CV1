@@ -73,7 +73,7 @@ void inicializarEstado( void )
 
 
     /* Matriz de projeccao é inicialmente a IDENTIDADE => Proj. Paralela Ortogonal */
-
+    
     matrizProj = IDENTITY_MATRIX;
 
     matrizModelView = IDENTITY_MATRIX;
@@ -234,17 +234,17 @@ void inicializarFontesDeLuz( void )
 
     arrayFocos[2]->posicao[0] = 0;
 
-    arrayFocos[2]->posicao[1] = 1.0;
+    arrayFocos[2]->posicao[1] = 2.0;
 
-    arrayFocos[2]->posicao[2] = 0.0;
+    arrayFocos[2]->posicao[2] = 2.0;
 
     arrayFocos[2]->posicao[3] = 1.0; /* Foco PONTUAL */
 
-    arrayFocos[2]->intensidade[0] = 1.0;
+    arrayFocos[2]->intensidade[0] = 0.8;
 
-    arrayFocos[2]->intensidade[1] = 1.0;
+    arrayFocos[2]->intensidade[1] = 0.8;
 
-    arrayFocos[2]->intensidade[2] = 1.0;
+    arrayFocos[2]->intensidade[2] = 0.2;
 
     arrayFocos[2]->intensidade[3] = 1.0;
 
