@@ -106,7 +106,7 @@ void inicializarJanela( void )
 
     /* Criar a janela de saida */
 
-    windowHandle = glutCreateWindow( "OpenGL_ex_16" );
+    windowHandle = glutCreateWindow( "Project_CV_64191_64645");
 
     if ( windowHandle < 1 )
     {
@@ -331,7 +331,7 @@ void inicializarModelos( void )
 
     /* Parametros das transformacoes */
 
-    arrayModelos[0]->deslX = -0.65;
+    arrayModelos[0]->deslX = -0.7;
 
     arrayModelos[0]->deslY = 0;
 
@@ -343,11 +343,11 @@ void inicializarModelos( void )
 
     arrayModelos[0]->angRotZZ = 0;
 
-    arrayModelos[0]->factorEscX = 1;
+    arrayModelos[0]->factorEscX = 0.9;
 
-    arrayModelos[0]->factorEscY = 1;
+    arrayModelos[0]->factorEscY = 0.9;
 
-    arrayModelos[0]->factorEscZ = 1;
+    arrayModelos[0]->factorEscZ = 0.9;
 
     arrayModelos[0]->rotacaoOnXX = 0;
 
@@ -401,9 +401,9 @@ void inicializarModelos( void )
 
     /* Parametros das transformacoes */
 
-    arrayModelos[1]->deslX = 0;
+    arrayModelos[1]->deslX = -0.05;
 
-    arrayModelos[1]->deslY = 0;
+    arrayModelos[1]->deslY = 0.05;
 
     arrayModelos[1]->deslZ = 0;
 
@@ -568,8 +568,9 @@ void inicializarModelos( void )
         arrayModelos[3+i]->rotacaoOnZZ = 0;
     }
  
-    arrayModelos[3]->deslX = -0.65;
-    arrayModelos[4]->deslX = 0.00;
+    arrayModelos[3]->deslX = -0.7;
+    arrayModelos[4]->deslX = -0.05;
+    arrayModelos[4]->deslY = 0.05;
     arrayModelos[5]->deslX = 0.65;
     
     // Ponteiro 1 --> Minutos
@@ -643,8 +644,9 @@ void inicializarModelos( void )
         arrayModelos[6+i]->rotacaoOnZZ = 0;
     }
 
-    arrayModelos[6]->deslX = -0.65;
-    arrayModelos[7]->deslX = 0.00;
+    arrayModelos[6]->deslX = -0.7;
+    arrayModelos[7]->deslX = -0.05;
+    arrayModelos[7]->deslY = 0.05;
     arrayModelos[8]->deslX = 0.65;
 
     // Ponteiro 2 --> Segundos
@@ -719,8 +721,9 @@ void inicializarModelos( void )
 
         arrayModelos[9+i]->rotacaoOnZZ = 1;
     }
-    arrayModelos[9]->deslX = -0.65;
-    arrayModelos[10]->deslX = 0.00;
+    arrayModelos[9]->deslX = -0.7;
+    arrayModelos[10]->deslX = -0.05;
+    arrayModelos[10]->deslY = 0.05;
     arrayModelos[11]->deslX = 0.65;
 
 }

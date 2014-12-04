@@ -149,6 +149,7 @@ void myKeyboard( unsigned char key, int x, int y )
     {
         case 's':
             setTimer(0, 0);
+            setTimer(1, 0);
             break;
         case 'Q' :
 

@@ -55,8 +55,7 @@ static menuItemStruct menu1[] = {
 				{"Definir alarme",   'A'},
                 {"Fuso Horario", 'B'},
                 {"Cronometro", 'C'},
-                {"Alterar Materiais", 'D'},
-                {"Mudar Perspective", 'E'}
+                {"Alterar Materiais", 'D'}
 };
 
 int numItensMenu1 = sizeof( menu1 ) / sizeof( menuItemStruct );
@@ -86,7 +85,6 @@ static void myMenuEsq( int i )
         }
         case 'D':{
             getMaterialChange();
-            
             break;
         }
 
