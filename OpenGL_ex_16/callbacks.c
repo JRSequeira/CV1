@@ -240,11 +240,11 @@ void myTimer( int value )
         int i = 0;
         for (i = 0; i < 3; i++)
         {
-            arrayModelos[9+i]->angRotZZ = 360 - second(s);
+            arrayModelos[9+i]->angRotZZ = 360 - second(s, i);
         }
         for (i = 0; i < 3; i++)
         {
-            arrayModelos[6+i]->angRotZZ = 360 - minute(m);
+            arrayModelos[6+i]->angRotZZ = 360 - minute(m, i);
         }
         for (i = 0; i < 3; i++)
         {

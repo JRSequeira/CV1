@@ -3,12 +3,20 @@
 
 static Alarm alarm = {-1, -1};
 static int fusoHorario[2] = {0, 0};
-static int timer[2] = {0, 0};
+static int timer[3] = {0, 0, 0};
 static int timerOk[3] = {0, 0, 0};
 static int timerValues[3] = {-1, -1, -1};
 
 void setTimer(int i, int res)
 {
+    if (i == 1)
+    {
+        i = 2;
+        fprintf(stdout, "Fuso Horario: Hora(s)\n");
+    }
+
+        fprintf(stdout, "Fuso Horario: Hora(s)\n");
+    fprintf(stdout, " %d Hora(s)\n", i);
     timer[i] = res;
     int j = 0;
     for (j = 0; j < 3; j++)
@@ -18,9 +26,9 @@ void setTimer(int i, int res)
     }
 }
 
-float second(int s)
+float second(int s, int i)
 {
-    if ((timer[0] == 1 || timer[1] == 1))
+    if ((timer[i] == 1))
     {
         if (timerOk[0] == 0)
         {
@@ -48,9 +56,9 @@ float second(int s)
 
 }
 
-float minute(int m)
+float minute(int m, int i)
 {
-    if((timer[0] == 1 || timer[1] == 1))
+    if((timer[i] == 1))
     {
         if (timerOk[1] == 0)
         {
@@ -78,7 +86,7 @@ float minute(int m)
 float hour(int h, int i)
 {
     float res = 0;
-    if((timer[0] == 1 || timer[1] == 1))
+    if((timer[i] == 1))
     {
         if (timerOk[2] == 0)
         {
@@ -137,6 +145,11 @@ int getFusoHorario(int i)
 void setFusoHorario(int h, int relogio)
 {
     fusoHorario[relogio] = h;
+    if (relogio == 1)
+    {
+        relogio = 2;
+    }
+    timer[relogio] = 0;
 }
 
 

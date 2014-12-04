@@ -140,7 +140,9 @@ void RotateAboutX(mat4x4* m, float angle)
 
 	rotation.m[10] = cosine;
 
-	memcpy(m->m, MultiplyMatrices(m, &rotation)->m, sizeof(m->m));
+    mat4x4 *teste = MultiplyMatrices(m, &rotation)->m;
+	memcpy(m->m, teste, sizeof(m->m));
+    free (teste);
 }
 
 
@@ -160,7 +162,9 @@ void RotateAboutY(mat4x4* m, float angle)
 
 	rotation.m[10] = cosine;
 
-	memcpy(m->m, MultiplyMatrices(m, &rotation)->m, sizeof(m->m));
+    mat4x4 *teste = MultiplyMatrices(m, &rotation)->m;
+    memcpy(m->m, teste, sizeof(m->m));
+    free (teste);
 }
 
 
@@ -180,7 +184,9 @@ void RotateAboutZ(mat4x4* m, float angle)
 
 	rotation.m[5] = cosine;
 
-	memcpy(m->m, MultiplyMatrices(m, &rotation)->m, sizeof(m->m));
+    mat4x4 *teste = MultiplyMatrices(m, &rotation)->m;
+    memcpy(m->m, teste, sizeof(m->m));
+    free (teste);
 }
 
 
@@ -194,7 +200,9 @@ void Scale( mat4x4* m, float x, float y, float z )
 
 	scale.m[10] = z;
 
-	memcpy(m->m, MultiplyMatrices(m, &scale)->m, sizeof(m->m));
+    mat4x4 *teste = MultiplyMatrices(m, &scale)->m;
+    memcpy(m->m, teste, sizeof(m->m));
+    free (teste);
 }
 
 
@@ -208,7 +216,9 @@ void Translate(mat4x4* m, float x, float y, float z)
 
     translation.m[14] = z;
 
-    memcpy(m->m, MultiplyMatrices(m, &translation)->m, sizeof(m->m));
+    mat4x4 *teste = MultiplyMatrices(m, &translation)->m;
+    memcpy(m->m, teste, sizeof(m->m));
+    free (teste);
 }
 
 

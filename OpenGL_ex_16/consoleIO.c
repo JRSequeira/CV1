@@ -140,11 +140,16 @@ void getNewFusoHorario()
 void getTimerOption()
 {
     int op;
+    int relogio;
     do{
-        fprintf(stdout, "Timer (1 --> start: ");
+        fprintf(stdout, "Relogio a alterar (0 --> Esquerda; 1 --> Direita): ");
+        fscanf(stdin, "%d", &relogio);
+    }while(relogio != 1 && relogio != 0);
+    do{
+        fprintf(stdout, "Timer (1 --> start and press s to stop): ");
         fscanf(stdin, "%d", &op);
     }while(op != 1);
-    setTimer(0, 1);
+    setTimer(relogio, 1);
 
 }
 

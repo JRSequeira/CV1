@@ -19,9 +19,9 @@ void setTimer(int i, int res);
 
 float hour(int h, int i);
 
-float minute(int m);
+float minute(int m, int i);
 
-float second(int s);
+float second(int s, int i);
 
 int getAlarmHour();
 
